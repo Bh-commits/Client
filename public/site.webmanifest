@@ -1,0 +1,16 @@
+{
+  "name": "IdeaClap India",
+  "short_name": "IdeaClap",
+  "start_url": "/",
+  "display": "standalone",
+  "theme_color": "#0A2E73",
+  "background_color": "#FFFFFF",
+  "icons": [
+    {
+      "src": "/logo.svg",
+      "sizes": "96x96",
+      "type": "image/svg+xml"
+    }
+  ]
+}
+
