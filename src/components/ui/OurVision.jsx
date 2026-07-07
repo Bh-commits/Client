@@ -1,14 +1,28 @@
 import { motion, useInView } from 'framer-motion';
-import { useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { FaEye } from 'react-icons/fa';
 
 export function OurVision() {
   const containerRef = useRef(null);
+  const [isMobile, setIsMobile] = useState(() =>
+    typeof window !== 'undefined' ? window.matchMedia('(max-width: 767px)').matches : false
+  );
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(max-width: 767px)');
+    const updateMobile = () => setIsMobile(mediaQuery.matches);
+
+    updateMobile();
+    mediaQuery.addEventListener('change', updateMobile);
+
+    return () => mediaQuery.removeEventListener('change', updateMobile);
+  }, []);
+
   // Trigger when 40% of the section is visible in viewport. No 'once: true', so it reverses when scrolled out.
   const isInView = useInView(containerRef, { margin: '-30% 0px -30% 0px' });
   
   // The 'opened' state is exactly equal to whether the section is in view
-  const opened = isInView;
+  const opened = isMobile || isInView;
 
   return (
     <section 

@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { useEffect, useState } from 'react';
 import { EffectCoverflow, Pagination, Autoplay } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
@@ -51,6 +52,20 @@ const slides = [
 ];
 
 export function WhyChoose() {
+  const [isMobile, setIsMobile] = useState(() =>
+    typeof window !== 'undefined' ? window.matchMedia('(max-width: 767px)').matches : false
+  );
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(max-width: 767px)');
+    const updateMobile = () => setIsMobile(mediaQuery.matches);
+
+    updateMobile();
+    mediaQuery.addEventListener('change', updateMobile);
+
+    return () => mediaQuery.removeEventListener('change', updateMobile);
+  }, []);
+
   return (
     <section className="relative overflow-hidden bg-[#081F52] py-24 lg:py-32">
       {/* Background Deep Glows */}
@@ -61,18 +76,20 @@ export function WhyChoose() {
         {/* Section Header */}
         <div className="mx-auto max-w-3xl text-center mb-16">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={isMobile ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+            animate={isMobile ? { opacity: 1, y: 0 } : undefined}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ margin: '-50px' }}
+            viewport={isMobile ? { once: true, amount: 0.05 } : { margin: '-50px' }}
             className="mb-4 inline-flex items-center gap-2 rounded-full border border-blue-500/20 bg-blue-500/10 px-4 py-1.5 text-xs font-bold tracking-widest text-blue-400 uppercase"
           >
             <span className="h-2 w-2 rounded-full bg-blue-500 shadow-[0_0_10px_rgba(59,130,246,0.8)]" />
             Why Choose IdeaClap India Private Limited
           </motion.div>
           <motion.h2
-            initial={{ opacity: 0, y: 30 }}
+            initial={isMobile ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+            animate={isMobile ? { opacity: 1, y: 0 } : undefined}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ margin: '-50px' }}
+            viewport={isMobile ? { once: true, amount: 0.05 } : { margin: '-50px' }}
             transition={{ duration: 0.6, delay: 0.1 }}
             className="font-serif text-4xl leading-tight text-white md:text-5xl lg:text-6xl"
           >
@@ -83,14 +100,15 @@ export function WhyChoose() {
 
         {/* 3D Coverflow Slider */}
         <motion.div 
-          initial={{ opacity: 0, scale: 0.9 }}
+          initial={isMobile ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }}
+          animate={isMobile ? { opacity: 1, scale: 1 } : undefined}
           whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ margin: '-50px' }}
+          viewport={isMobile ? { once: true, amount: 0.05 } : { margin: '-50px' }}
           transition={{ duration: 0.8, ease: "easeOut" }}
           className="w-full max-w-[1400px] mx-auto px-4"
         >
           <Swiper
-            effect={'coverflow'}
+            effect={isMobile ? 'slide' : 'coverflow'}
             grabCursor={true}
             centeredSlides={true}
             slidesPerView={1}

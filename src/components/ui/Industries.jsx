@@ -1,7 +1,22 @@
 import { motion } from 'framer-motion';
+import { useEffect, useState } from 'react';
 import { industries } from '../../utils/content';
 
 export function Industries() {
+  const [isMobile, setIsMobile] = useState(() =>
+    typeof window !== 'undefined' ? window.matchMedia('(max-width: 767px)').matches : false
+  );
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(max-width: 767px)');
+    const updateMobile = () => setIsMobile(mediaQuery.matches);
+
+    updateMobile();
+    mediaQuery.addEventListener('change', updateMobile);
+
+    return () => mediaQuery.removeEventListener('change', updateMobile);
+  }, []);
+
   return (
     <section className="relative overflow-hidden bg-[#050B14] py-24 lg:py-32">
       {/* Background Deep Glows */}
@@ -13,18 +28,20 @@ export function Industries() {
         {/* Section Header */}
         <div className="mx-auto max-w-3xl text-center mb-16">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={isMobile ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+            animate={isMobile ? { opacity: 1, y: 0 } : undefined}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false, margin: '-50px' }}
+            viewport={isMobile ? { once: true, amount: 0.05 } : { once: false, margin: '-50px' }}
             className="mb-4 inline-flex items-center gap-2 rounded-full border border-[#c68b59]/20 bg-[#c68b59]/10 px-4 py-1.5 text-xs font-light tracking-[0.22em] text-[#c68b59] uppercase"
           >
             <span className="h-1.5 w-1.5 rounded-full bg-[#c68b59] animate-pulse" />
             Industries We Serve
           </motion.div>
           <motion.h2
-            initial={{ opacity: 0, y: 30 }}
+            initial={isMobile ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+            animate={isMobile ? { opacity: 1, y: 0 } : undefined}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false, margin: '-50px' }}
+            viewport={isMobile ? { once: true, amount: 0.05 } : { once: false, margin: '-50px' }}
             transition={{ duration: 0.6, delay: 0.1 }}
             className="font-serif text-3xl leading-tight text-white md:text-5xl"
           >
@@ -44,9 +61,10 @@ export function Industries() {
               return (
                 <motion.div
                   key={industry.title}
-                  initial={{ opacity: 0, y: 40 }}
+                  initial={isMobile ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
+                  animate={isMobile ? { opacity: 1, y: 0 } : undefined}
                   whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: false, margin: '-50px' }}
+                  viewport={isMobile ? { once: true, amount: 0.05 } : { once: false, margin: '-50px' }}
                   transition={{ duration: 0.5, delay: index * 0.1, ease: 'easeOut' }}
                   className={`group relative overflow-hidden rounded-3xl border border-white/5 bg-white/[0.02] p-8 transition-all duration-500 hover:border-purple-500/30 hover:bg-white/[0.04] hover:shadow-[0_0_30px_rgba(168,85,247,0.15)] ${
                     isLarge ? 'lg:col-span-2' : 'lg:col-span-1'

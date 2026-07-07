@@ -1,4 +1,5 @@
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
+import { useEffect, useState } from 'react';
 import { FaGlobe, FaRobot, FaBullhorn, FaCogs, FaArrowRight } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 
@@ -44,7 +45,7 @@ const services = [
 /* ─────────────────────────────────────────
    3D Tilt Card
 ───────────────────────────────────────── */
-function TiltCard({ service, index, isEven }) {
+function TiltCard({ service, index, isEven, isMobile }) {
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
   const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [8, -8]), { stiffness: 200, damping: 20 });
@@ -68,9 +69,10 @@ function TiltCard({ service, index, isEven }) {
 
   return (
     <motion.div
-      initial={{ opacity: 0, x: isEven ? -60 : 60, y: 30 }}
+      initial={isMobile ? { opacity: 1, x: 0, y: 0 } : { opacity: 0, x: isEven ? -60 : 60, y: 30 }}
+      animate={isMobile ? { opacity: 1, x: 0, y: 0 } : undefined}
       whileInView={{ opacity: 1, x: 0, y: 0 }}
-      viewport={{ margin: '-80px', once: true }}
+      viewport={isMobile ? { once: true, amount: 0.05 } : { margin: '-80px', once: true }}
       transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: index * 0.08 }}
       className={`w-full md:w-1/2 pl-16 md:pl-0 ${isEven ? 'md:pr-16 order-1 text-left' : 'md:pl-16 order-2 text-left'}`}
       style={{ perspective: '1200px' }}
@@ -78,7 +80,7 @@ function TiltCard({ service, index, isEven }) {
       onMouseLeave={handleMouseLeave}
     >
       <motion.div
-        style={{ rotateX, rotateY, transformStyle: 'preserve-3d' }}
+        style={{ rotateX: isMobile ? 0 : rotateX, rotateY: isMobile ? 0 : rotateY, transformStyle: 'preserve-3d' }}
         className="relative overflow-hidden rounded-2xl border border-white/8 bg-[#0B1120]/90 backdrop-blur-md p-8 shadow-xl transition-shadow duration-500 hover:shadow-[0_30px_60px_rgba(0,0,0,0.5)]"
       >
         {/* Animated gradient spotlight on mouse position */}
@@ -176,6 +178,20 @@ function TiltCard({ service, index, isEven }) {
 }
 
 export function OurServices() {
+  const [isMobile, setIsMobile] = useState(() =>
+    typeof window !== 'undefined' ? window.matchMedia('(max-width: 767px)').matches : false
+  );
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(max-width: 767px)');
+    const updateMobile = () => setIsMobile(mediaQuery.matches);
+
+    updateMobile();
+    mediaQuery.addEventListener('change', updateMobile);
+
+    return () => mediaQuery.removeEventListener('change', updateMobile);
+  }, []);
+
   return (
     <section className="relative overflow-hidden py-24 lg:py-32" style={{ background: '#0B1120' }}>
       {/* Background image */}
@@ -216,9 +232,10 @@ export function OurServices() {
         {/* Section Header */}
         <div className="mx-auto max-w-3xl text-center mb-20">
           <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
+            initial={isMobile ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
+            animate={isMobile ? { opacity: 1, scale: 1 } : undefined}
             whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ margin: '-100px', once: true }}
+            viewport={isMobile ? { once: true, amount: 0.05 } : { margin: '-100px', once: true }}
             transition={{ duration: 0.5 }}
             className="mb-4 inline-flex items-center gap-2 rounded-full border border-blue-500/20 bg-blue-500/10 px-4 py-1.5 text-xs font-bold tracking-widest text-blue-400 uppercase"
           >
@@ -226,9 +243,10 @@ export function OurServices() {
             Our Services
           </motion.div>
           <motion.h2
-            initial={{ opacity: 0, y: 30 }}
+            initial={isMobile ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+            animate={isMobile ? { opacity: 1, y: 0 } : undefined}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ margin: '-100px', once: true }}
+            viewport={isMobile ? { once: true, amount: 0.05 } : { margin: '-100px', once: true }}
             transition={{ duration: 0.6, delay: 0.1 }}
             className="font-serif text-4xl leading-tight text-white md:text-5xl lg:text-6xl"
           >
@@ -236,9 +254,10 @@ export function OurServices() {
             <span className="italic text-[#c68b59]">Grow.</span>
           </motion.h2>
           <motion.p
-            initial={{ opacity: 0, y: 30 }}
+            initial={isMobile ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+            animate={isMobile ? { opacity: 1, y: 0 } : undefined}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ margin: '-100px', once: true }}
+            viewport={isMobile ? { once: true, amount: 0.05 } : { margin: '-100px', once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
             className="mt-6 text-lg text-slate-300/70 font-light leading-relaxed"
           >
@@ -252,9 +271,10 @@ export function OurServices() {
           <motion.div
             className="absolute left-4 md:left-1/2 top-0 bottom-0 w-px -translate-x-1/2"
             style={{ background: 'linear-gradient(to bottom, rgba(59,130,246,0) 0%, rgba(59,130,246,0.4) 20%, rgba(139,92,246,0.4) 50%, rgba(198,139,89,0.4) 80%, rgba(198,139,89,0) 100%)' }}
-            initial={{ scaleY: 0, originY: 0 }}
+            initial={isMobile ? { scaleY: 1, originY: 0 } : { scaleY: 0, originY: 0 }}
+            animate={isMobile ? { scaleY: 1 } : undefined}
             whileInView={{ scaleY: 1 }}
-            viewport={{ once: true, margin: '-50px' }}
+            viewport={isMobile ? { once: true, amount: 0.05 } : { once: true, margin: '-50px' }}
             transition={{ duration: 1.5, ease: 'easeInOut' }}
           />
 
@@ -269,9 +289,10 @@ export function OurServices() {
 
                   {/* Timeline Node / Icon */}
                   <motion.div
-                    initial={{ scale: 0, opacity: 0 }}
+                    initial={isMobile ? { scale: 1, opacity: 1 } : { scale: 0, opacity: 0 }}
+                    animate={isMobile ? { scale: 1, opacity: 1 } : undefined}
                     whileInView={{ scale: 1, opacity: 1 }}
-                    viewport={{ margin: '-100px', once: true }}
+                    viewport={isMobile ? { once: true, amount: 0.05 } : { margin: '-100px', once: true }}
                     transition={{ type: 'spring', stiffness: 200, delay: 0.2 }}
                     className="absolute left-4 md:left-1/2 z-20 flex h-14 w-14 -translate-x-1/2 items-center justify-center rounded-full transition-all duration-300"
                     style={{
@@ -291,7 +312,7 @@ export function OurServices() {
                   <div className={`hidden md:block w-1/2 ${isEven ? 'order-2' : 'order-1'}`} />
 
                   {/* 3D Tilt Card */}
-                  <TiltCard service={service} index={index} isEven={isEven} />
+                  <TiltCard service={service} index={index} isEven={isEven} isMobile={isMobile} />
                 </div>
               );
             })}

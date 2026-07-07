@@ -61,6 +61,89 @@ export function CompanyIntro() {
       transition: { type: 'spring', stiffness: 60, damping: 15 }
     }
   };
+  const sectionViewport = isMobile ? { once: true, amount: 0.05 } : { margin: '-100px' };
+
+  if (isMobile) {
+    return (
+      <section
+        className="relative overflow-hidden py-16"
+        style={{ background: 'linear-gradient(180deg, #081F52 0%, #0B2F78 52%, #081F52 100%)' }}
+      >
+        <div
+          className="absolute inset-0 opacity-[0.03] pointer-events-none"
+          style={{
+            backgroundImage: 'radial-gradient(circle, #fff 10%, transparent 11%)',
+            backgroundSize: '24px 24px',
+          }}
+        />
+
+        <div className="container-page relative z-10 flex flex-col gap-8">
+          <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-[#061634]/80 shadow-[0_18px_50px_rgba(0,0,0,0.35)]">
+            <img
+              src={images[0]}
+              alt="Digital Solutions"
+              className="aspect-[4/3] w-full object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#081F52]/90 via-[#081F52]/20 to-transparent pointer-events-none" />
+            <div className="absolute bottom-4 left-4 right-4 rounded-xl border border-white/10 bg-white/10 p-3 backdrop-blur-md">
+              <div className="flex items-center gap-3">
+                <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-accent/20 text-accent">
+                  <FaRegLightbulb className="text-lg" />
+                </div>
+                <div>
+                  <p className="text-sm font-normal text-white">Innovation First</p>
+                  <p className="text-xs font-light tracking-wide text-blue-100/60">Driving Business Value</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="flex flex-col gap-7">
+            <div className="space-y-5">
+              <p className="text-xs font-light uppercase tracking-[0.22em] text-[#c68b59]">
+                Who We Are
+              </p>
+              <h2 className="font-serif text-4xl leading-[1.15] text-white">
+                Digital Solutions Built Around{' '}
+                <span className="italic text-[#c68b59]">Your Business.</span>
+              </h2>
+
+              <div className="relative pl-5">
+                <div className="absolute left-0 top-0 h-full w-0.5 rounded-full bg-gradient-to-b from-[#c68b59] to-blue-600" />
+                <p className="text-base font-light leading-[1.8] tracking-wide text-blue-100/70">
+                  Technology should simplify your businessâ€”not complicate it.
+                </p>
+              </div>
+            </div>
+
+            <div className="flex flex-col gap-4">
+              <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-white/[0.04] p-5">
+                <div className="relative z-10 flex gap-4">
+                  <div className="mt-1 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-blue-500/20 text-blue-300">
+                    <FaLaptopCode />
+                  </div>
+                  <p className="text-sm font-light leading-[1.8] tracking-wide text-blue-100/75">
+                    At IdeaClap India Private Limited, we create digital solutions that solve real business challenges. Whether you're launching a startup, modernizing an established company, or embracing AI automation, our team builds solutions that deliver measurable business value.
+                  </p>
+                </div>
+              </div>
+
+              <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-white/[0.04] p-5">
+                <div className="relative z-10 flex gap-4">
+                  <div className="mt-1 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-accent/10 text-accent">
+                    <FaRegLightbulb />
+                  </div>
+                  <p className="text-sm font-light leading-[1.8] tracking-wide text-blue-100/75">
+                    From strategy and design to development and long-term support, we become your technology partnerâ€”not just your service provider.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section 
@@ -95,8 +178,9 @@ export function CompanyIntro() {
         {/* LEFT: 3D Hover Parallax Image Slider */}
         <motion.div
           initial={isMobile ? { opacity: 1, scale: 1, rotateY: 0 } : { opacity: 0, scale: 0.9, rotateY: -15 }}
+          animate={isMobile ? { opacity: 1, scale: 1, rotateY: 0 } : undefined}
           whileInView={{ opacity: 1, scale: 1, rotateY: 0 }}
-          viewport={{ margin: '-100px' }}
+          viewport={sectionViewport}
           transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
           className="relative perspective-[2000px]"
         >
@@ -111,7 +195,7 @@ export function CompanyIntro() {
             <div className="relative overflow-hidden rounded-[22px] bg-navy/80 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.7)] ring-1 ring-white/10 backdrop-blur-xl">
               <Swiper
                 modules={[Autoplay, EffectCreative, Pagination]}
-                effect="creative"
+                effect={isMobile ? 'slide' : 'creative'}
                 creativeEffect={{
                   prev: { shadow: true, translate: ['-20%', 0, -1], opacity: 0 },
                   next: { translate: ['100%', 0, 0] },
@@ -159,8 +243,9 @@ export function CompanyIntro() {
         <motion.div
           variants={containerVariants}
           initial={isMobile ? "visible" : "hidden"}
+          animate={isMobile ? "visible" : undefined}
           whileInView="visible"
-          viewport={{ margin: '-100px' }}
+          viewport={sectionViewport}
           className="flex flex-col gap-10"
         >
           <div className="space-y-6">

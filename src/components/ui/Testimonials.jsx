@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { useEffect, useState } from 'react';
 import { Autoplay, Pagination, EffectCards } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { FaQuoteLeft, FaStar } from 'react-icons/fa';
@@ -8,6 +9,20 @@ import 'swiper/css/effect-cards';
 import 'swiper/css/pagination';
 
 export function Testimonials() {
+  const [isMobile, setIsMobile] = useState(() =>
+    typeof window !== 'undefined' ? window.matchMedia('(max-width: 767px)').matches : false
+  );
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(max-width: 767px)');
+    const updateMobile = () => setIsMobile(mediaQuery.matches);
+
+    updateMobile();
+    mediaQuery.addEventListener('change', updateMobile);
+
+    return () => mediaQuery.removeEventListener('change', updateMobile);
+  }, []);
+
   return (
     <section className="relative overflow-hidden bg-[#030A14] py-24 lg:py-32">
       {/* Background Deep Glows */}
@@ -19,9 +34,10 @@ export function Testimonials() {
         {/* Left Side: Header & Context */}
         <motion.div 
           className="w-full lg:w-5/12"
-          initial={{ opacity: 0, x: -50 }}
+          initial={isMobile ? { opacity: 1, x: 0 } : { opacity: 0, x: -50 }}
+          animate={isMobile ? { opacity: 1, x: 0 } : undefined}
           whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: false, margin: '-50px' }}
+          viewport={isMobile ? { once: true, amount: 0.05 } : { once: false, margin: '-50px' }}
           transition={{ duration: 0.6, ease: "easeOut" }}
         >
           <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-blue-500/20 bg-blue-500/10 px-4 py-1.5 text-xs font-bold tracking-widest text-blue-400 uppercase">
@@ -55,13 +71,14 @@ export function Testimonials() {
         {/* Right Side: 3D Cards Slider */}
         <motion.div 
           className="w-full lg:w-7/12"
-          initial={{ opacity: 0, scale: 0.9, x: 50 }}
+          initial={isMobile ? { opacity: 1, scale: 1, x: 0 } : { opacity: 0, scale: 0.9, x: 50 }}
+          animate={isMobile ? { opacity: 1, scale: 1, x: 0 } : undefined}
           whileInView={{ opacity: 1, scale: 1, x: 0 }}
-          viewport={{ once: false, margin: '-50px' }}
+          viewport={isMobile ? { once: true, amount: 0.05 } : { once: false, margin: '-50px' }}
           transition={{ duration: 0.7, delay: 0.2, ease: "easeOut" }}
         >
           <Swiper
-            effect={'cards'}
+            effect={isMobile ? 'slide' : 'cards'}
             grabCursor={true}
             modules={[EffectCards, Autoplay, Pagination]}
             autoplay={{
