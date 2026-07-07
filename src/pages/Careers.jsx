@@ -497,7 +497,7 @@ export default function Careers() {
       </section>
 
       {/* ══════════════════════════════════════════
-          SLIDE-IN APPLICATION DRAWER
+          CENTER APPLICATION POPUP
       ══════════════════════════════════════════ */}
       <AnimatePresence>
         {activeJob && (
@@ -507,14 +507,16 @@ export default function Careers() {
               onClick={() => setActiveJob(null)}
               className="fixed inset-0 bg-navy/40 backdrop-blur-sm z-[90]" />
 
-            {/* Drawer */}
+            {/* Popup */}
             <motion.div
-              initial={{ x: '100%' }} animate={{ x: 0 }} exit={{ x: '100%' }}
-              transition={{ type: 'spring', stiffness: 280, damping: 28 }}
-              className="fixed top-0 right-0 bottom-0 z-[100] w-full max-w-lg bg-white shadow-2xl overflow-y-auto"
+              initial={{ opacity: 0, y: 24, scale: 0.96 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 24, scale: 0.96 }}
+              transition={{ type: 'spring', stiffness: 260, damping: 26 }}
+              className="fixed inset-x-4 top-[5vh] bottom-[5vh] z-[100] mx-auto w-auto max-w-3xl overflow-y-auto rounded-3xl bg-white shadow-2xl sm:inset-x-6"
             >
-              {/* Drawer Header */}
-              <div className="sticky top-0 bg-white border-b border-navy/8 px-7 py-5 flex items-start justify-between z-10">
+              {/* Popup Header */}
+              <div className="sticky top-0 bg-white border-b border-navy/8 px-5 py-5 flex items-start justify-between z-10 sm:px-7">
                 <div>
                   <span className="text-[10px] font-bold font-ui uppercase tracking-widest text-[#c68b59] block mb-1">
                     {activeJob.dept}
@@ -528,15 +530,15 @@ export default function Careers() {
               </div>
 
               {/* Job Details */}
-              <div className="px-7 py-6 border-b border-navy/8">
-                <div className="grid grid-cols-2 gap-3 mb-5">
+              <div className="px-5 py-6 border-b border-navy/8 sm:px-7">
+                <div className="grid grid-cols-1 gap-3 mb-5 sm:grid-cols-2">
                   {[
                     { icon: FaBriefcase, label: activeJob.type },
                     { icon: FaGlobe, label: activeJob.mode },
                     { icon: FaClock, label: activeJob.duration },
                     { icon: FaMapMarkerAlt, label: activeJob.location },
                     { icon: FaDollarSign, label: activeJob.stipend },
-                  ].map(({ icon: Icon, label }) => (
+                  ].map(({ label }) => (
                     <div key={label} className="flex items-center gap-2 text-sm text-navy/70 font-ui">
                       <FaCheckCircle className="text-[#c68b59] flex-shrink-0" />
                       {label}
@@ -554,7 +556,7 @@ export default function Careers() {
               </div>
 
               {/* Application Form */}
-              <div className="px-7 py-6">
+              <div className="px-5 py-6 sm:px-7">
                 <h3 className="font-serif text-xl font-semibold text-navy mb-6">Apply Now</h3>
 
                 {submitted ? (

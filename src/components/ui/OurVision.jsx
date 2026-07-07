@@ -1,5 +1,5 @@
 import { motion, useInView } from 'framer-motion';
-import { useRef, useState, useEffect } from 'react';
+import { useRef } from 'react';
 import { FaEye } from 'react-icons/fa';
 
 export function OurVision() {
@@ -13,7 +13,7 @@ export function OurVision() {
   return (
     <section 
       ref={containerRef}
-      className="relative flex min-h-[70vh] w-full items-center justify-center overflow-hidden bg-[#081F52] py-32"
+      className="relative flex min-h-[520px] w-full items-center justify-center overflow-hidden bg-[#081F52] py-20 md:min-h-[70vh] md:py-32"
     >
       {/* 
         ========================================
@@ -86,7 +86,7 @@ export function OurVision() {
       */}
       {/* Left Door */}
       <motion.div
-        className="absolute left-0 top-0 z-50 flex h-full w-1/2 items-center justify-end overflow-hidden border-r border-accent/20 bg-[#0B2F78] shadow-[20px_0_50px_rgba(0,0,0,0.5)] backdrop-blur-xl"
+        className="absolute left-0 top-0 z-50 hidden h-full w-1/2 items-center justify-end overflow-hidden border-r border-accent/20 bg-[#0B2F78] shadow-[20px_0_50px_rgba(0,0,0,0.5)] backdrop-blur-xl md:flex"
         initial={{ x: 0 }}
         animate={opened ? { x: "-100%" } : { x: 0 }}
         transition={{ duration: 1.2, ease: [0.77, 0, 0.175, 1], delay: 0.2 }}
@@ -104,7 +104,7 @@ export function OurVision() {
 
       {/* Right Door */}
       <motion.div
-        className="absolute right-0 top-0 z-50 flex h-full w-1/2 items-center justify-start overflow-hidden border-l border-accent/20 bg-[#0B2F78] shadow-[-20px_0_50px_rgba(0,0,0,0.5)] backdrop-blur-xl"
+        className="absolute right-0 top-0 z-50 hidden h-full w-1/2 items-center justify-start overflow-hidden border-l border-accent/20 bg-[#0B2F78] shadow-[-20px_0_50px_rgba(0,0,0,0.5)] backdrop-blur-xl md:flex"
         initial={{ x: 0 }}
         animate={opened ? { x: "100%" } : { x: 0 }}
         transition={{ duration: 1.2, ease: [0.77, 0, 0.175, 1], delay: 0.2 }}

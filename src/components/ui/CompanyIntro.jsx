@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { Autoplay, EffectCreative, Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -7,6 +8,9 @@ import 'swiper/css/effect-creative';
 import 'swiper/css/pagination';
 
 export function CompanyIntro() {
+  const [isMobile, setIsMobile] = useState(() =>
+    typeof window !== 'undefined' ? window.matchMedia('(max-width: 767px)').matches : false
+  );
   const images = [
     '/company_intro.png',
     '/company_intro_strategy.png',
@@ -22,12 +26,23 @@ export function CompanyIntro() {
   const rotateY = useTransform(springX, [-1, 1], [-5, 5]);
 
   const handleMouseMove = (e) => {
+    if (isMobile) return;
     const rect = e.currentTarget.getBoundingClientRect();
     const x = ((e.clientX - rect.left) / rect.width - 0.5) * 2;
     const y = ((e.clientY - rect.top) / rect.height - 0.5) * 2;
     mouseX.set(x);
     mouseY.set(y);
   };
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(max-width: 767px)');
+    const updateMobile = () => setIsMobile(mediaQuery.matches);
+
+    updateMobile();
+    mediaQuery.addEventListener('change', updateMobile);
+
+    return () => mediaQuery.removeEventListener('change', updateMobile);
+  }, []);
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -49,7 +64,7 @@ export function CompanyIntro() {
 
   return (
     <section 
-      className="relative overflow-hidden py-32"
+      className="relative overflow-hidden py-20 md:py-32"
       style={{ background: 'linear-gradient(to bottom, #081F52 0%, #0B2F78 50%, #081F52 100%)' }}
       onMouseMove={handleMouseMove}
     >
@@ -75,18 +90,18 @@ export function CompanyIntro() {
         transition={{ duration: 12, repeat: Infinity, ease: 'easeInOut', delay: 2 }}
       />
 
-      <div className="container-page relative z-10 grid items-center gap-16 lg:grid-cols-2 lg:gap-24">
+      <div className="container-page relative z-10 grid items-center gap-10 md:gap-16 lg:grid-cols-2 lg:gap-24">
         
         {/* LEFT: 3D Hover Parallax Image Slider */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.9, rotateY: -15 }}
+          initial={isMobile ? { opacity: 1, scale: 1, rotateY: 0 } : { opacity: 0, scale: 0.9, rotateY: -15 }}
           whileInView={{ opacity: 1, scale: 1, rotateY: 0 }}
           viewport={{ margin: '-100px' }}
           transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
           className="relative perspective-[2000px]"
         >
           <motion.div 
-            style={{ rotateX, rotateY, transformStyle: 'preserve-3d' }}
+            style={{ rotateX: isMobile ? 0 : rotateX, rotateY: isMobile ? 0 : rotateY, transformStyle: 'preserve-3d' }}
             className="relative rounded-3xl p-1"
           >
             {/* Animated Gradient Border */}
@@ -143,7 +158,7 @@ export function CompanyIntro() {
         {/* RIGHT: Staggered Content with Glass Cards */}
         <motion.div
           variants={containerVariants}
-          initial="hidden"
+          initial={isMobile ? "visible" : "hidden"}
           whileInView="visible"
           viewport={{ margin: '-100px' }}
           className="flex flex-col gap-10"

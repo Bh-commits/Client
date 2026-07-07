@@ -1,22 +1,22 @@
-import { useState } from 'react';
-import { motion } from 'framer-motion';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Pagination, Navigation } from 'swiper/modules';
+import { useRef } from 'react';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import { 
   FaLaptopCode, FaRobot, FaBolt, FaMobileAlt, FaBullhorn, 
-  FaRegLightbulb, FaArrowRight, FaNodeJs, FaReact, FaAws,
-  FaAngleLeft, FaAngleRight
+  FaRegLightbulb, FaNodeJs, FaReact, FaAws
 } from 'react-icons/fa';
 import { SiMongodb, SiExpress } from 'react-icons/si';
 import { PageHeader } from '../components/ui/PageHeader';
 import { PageTransition } from '../components/ui/PageTransition';
 import { SEO } from '../components/ui/SEO';
 
-import 'swiper/css';
-import 'swiper/css/pagination';
-import 'swiper/css/navigation';
-
 export default function Portfolio() {
+  const projectsScrollRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: projectsScrollRef,
+    offset: ["start start", "end end"]
+  });
+  const projectTrackX = useTransform(scrollYProgress, [0, 1], ["0%", "-62%"]);
+
   const projects = [
     {
       number: "01",
@@ -94,9 +94,10 @@ export default function Portfolio() {
         primaryCta="Explore Our Work"
       />
 
-      {/* ── 2. FEATURED PROJECTS SWIPER CAROUSEL ── */}
-      <section className="bg-white py-24 md:py-32 border-b border-[rgba(198,139,89,0.12)] overflow-hidden">
-        <div className="container-page">
+      {/* ── 2. FEATURED PROJECTS SCROLL SECTION ── */}
+      <section ref={projectsScrollRef} className="relative h-[320vh] bg-white border-b border-[rgba(198,139,89,0.12)]">
+        <div className="sticky top-0 flex h-screen items-center overflow-hidden py-20">
+          <div className="container-page w-full">
 
           {/* Section header row */}
           <motion.div
@@ -114,48 +115,18 @@ export default function Portfolio() {
             </h2>
           </motion.div>
 
-          {/* Swiper Carousel */}
           <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ type: "spring", stiffness: 80, damping: 18, delay: 0.15 }}
+            style={{ x: projectTrackX }}
+            className="flex w-max gap-6"
           >
-            <style>{`
-              .portfolio-swiper .swiper-pagination-bullet {
-                width: 10px; height: 10px;
-                background: #b0bbd4;
-                opacity: 1;
-                transition: all 0.3s;
-              }
-              .portfolio-swiper .swiper-pagination-bullet-active {
-                background: #081F52;
-                width: 28px;
-                border-radius: 9999px;
-              }
-            `}</style>
-            <Swiper
-              modules={[Pagination, Navigation]}
-              spaceBetween={24}
-              slidesPerView={1}
-              pagination={{ clickable: true, el: '#portfolio-dots' }}
-              navigation={{ nextEl: '#portfolio-next', prevEl: '#portfolio-prev' }}
-              breakpoints={{
-                640:  { slidesPerView: 1.6 },
-                768:  { slidesPerView: 2.1 },
-                1024: { slidesPerView: 2.6 },
-                1280: { slidesPerView: 3.1 },
-              }}
-              className="portfolio-swiper w-full pb-4"
-            >
               {projects.map((proj) => {
                 const Icon = proj.icon;
                 return (
-                  <SwiperSlide key={proj.title} className="h-auto">
                     <motion.div
+                      key={proj.title}
                       whileHover={{ y: -6 }}
                       transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                      className="group relative flex flex-col justify-between h-full min-h-[400px] rounded-3xl border border-[rgba(8,31,82,0.1)] bg-white/90 backdrop-blur-sm overflow-hidden shadow-[0_2px_24px_rgba(8,31,82,0.06)] hover:shadow-[0_12px_40px_rgba(8,31,82,0.14)] hover:border-[#c68b59]/40 transition-all duration-400"
+                      className="group relative flex min-h-[400px] w-[82vw] max-w-[420px] flex-shrink-0 flex-col justify-between rounded-3xl border border-[rgba(8,31,82,0.1)] bg-white/90 backdrop-blur-sm overflow-hidden shadow-[0_2px_24px_rgba(8,31,82,0.06)] hover:shadow-[0_12px_40px_rgba(8,31,82,0.14)] hover:border-[#c68b59]/40 transition-all duration-400 sm:w-[360px] lg:w-[420px]"
                     >
                       {/* Top accent line */}
                       <div className="absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-[#c68b59]/0 via-[#c68b59] to-[#c68b59]/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
@@ -196,39 +167,16 @@ export default function Portfolio() {
                         </span>
                         <a
                           href="/free-consultation"
-                          className="inline-flex items-center gap-1.5 text-xs font-semibold font-ui tracking-widest uppercase text-[#c68b59] group-hover:gap-3 transition-all duration-300"
+                          className="text-xs font-semibold font-ui tracking-widest uppercase text-[#c68b59]"
                         >
                           View Project
-                          <FaArrowRight className="text-[10px]" />
                         </a>
                       </div>
                     </motion.div>
-                  </SwiperSlide>
                 );
               })}
-            </Swiper>
-
-            {/* Dots + Buttons row */}
-            <div className="flex items-center justify-center gap-6 mt-10">
-              <button
-                id="portfolio-prev"
-                aria-label="Previous project"
-                className="flex h-12 w-12 items-center justify-center rounded-full border border-navy/20 bg-white text-navy hover:bg-[#081F52] hover:text-white hover:border-[#081F52] transition-all duration-300 shadow-sm focus:outline-none"
-              >
-                <FaAngleLeft className="text-base" />
-              </button>
-
-              <div id="portfolio-dots" className="flex gap-2" />
-
-              <button
-                id="portfolio-next"
-                aria-label="Next project"
-                className="flex h-12 w-12 items-center justify-center rounded-full border border-navy/20 bg-white text-navy hover:bg-[#081F52] hover:text-white hover:border-[#081F52] transition-all duration-300 shadow-sm focus:outline-none"
-              >
-                <FaAngleRight className="text-base" />
-              </button>
-            </div>
           </motion.div>
+          </div>
         </div>
       </section>
 

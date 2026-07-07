@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence, useScroll, useSpring, useTransform, useInView } from 'framer-motion';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { EffectCreative, Pagination, Navigation } from 'swiper/modules';
+import { EffectCreative, Pagination, Navigation, Autoplay } from 'swiper/modules';
 import { 
   FaRobot, FaPhone, FaBolt, FaUserCheck, FaShareAlt, FaBook, 
   FaChartLine, FaArrowRight, FaChevronDown, FaCheckCircle, FaLock, 
@@ -158,6 +158,8 @@ export default function AISolutions() {
     { name: "AWS", icon: FaServer },
     { name: "Render", icon: FaServer }
   ];
+  const topTechnologies = technologies.slice(0, 5);
+  const bottomTechnologies = technologies.slice(5);
 
   const aiSolutions = [
     { number: "01", title: "AI Chatbots", desc: "Provide instant customer support, answer FAQs, qualify leads, and stay available 24/7 across your website and WhatsApp.", icon: FaRobot },
@@ -412,68 +414,76 @@ export default function AISolutions() {
               </h2>
             </div>
             
-            {/* Slide navigation controls */}
-            <div className="flex items-center gap-3">
-              <button className="swiper-btn-prev flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-white/[0.02] text-white hover:bg-white hover:text-[#081F52] transition-colors focus:outline-none">
-                <FaAngleLeft className="text-lg" />
-              </button>
-              <button className="swiper-btn-next flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-white/[0.02] text-white hover:bg-white hover:text-[#081F52] transition-colors focus:outline-none">
-                <FaAngleRight className="text-lg" />
-              </button>
-            </div>
           </div>
 
-          <Swiper
-            modules={[Pagination, Navigation]}
-            spaceBetween={30}
-            slidesPerView={1}
-            pagination={{ clickable: true, el: '.swiper-nav-pagination', bulletActiveClass: '!bg-[#c68b59]' }}
-            navigation={{
-              nextEl: '.swiper-btn-next',
-              prevEl: '.swiper-btn-prev',
-            }}
-            breakpoints={{
-              640: { slidesPerView: 2 },
-              1024: { slidesPerView: 3 }
-            }}
-            className="w-full pb-12"
-          >
-            {aiSolutions.map((solution) => {
-              const Icon = solution.icon;
-              return (
-                <SwiperSlide key={solution.title} className="h-auto">
-                  <div className="relative flex flex-col justify-between h-full min-h-[380px] rounded-2xl border border-white/10 bg-white/[0.02] p-8 shadow-xl backdrop-blur-md overflow-hidden hover:border-[#c68b59]/30 group transition-all duration-300">
-                    {/* Hover Glow Gradient */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#c68b59]/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
-                    
-                    <div className="relative z-10">
-                      {/* Big Card Number */}
-                      <span className="block font-serif text-5xl md:text-6xl font-light text-white/5 group-hover:text-[#c68b59]/15 select-none mb-6 transition-colors duration-300">
-                        {solution.number}
-                      </span>
+          <div className="relative">
+            <button
+              aria-label="Previous AI solution"
+              className="swiper-btn-prev absolute left-0 top-1/2 z-20 flex h-12 w-12 -translate-x-3 -translate-y-1/2 items-center justify-center rounded-lg border border-white/10 bg-white text-[#081F52] shadow-[0_12px_30px_rgba(0,0,0,0.28)] transition-all duration-300 hover:bg-[#c68b59] hover:text-white focus:outline-none md:-translate-x-6"
+            >
+              <FaAngleLeft className="text-lg" />
+            </button>
 
-                      <h3 className="font-serif text-2xl font-semibold text-white mb-4 group-hover:text-[#c68b59] transition-colors">
-                        {solution.title}
-                      </h3>
+            <Swiper
+              modules={[Pagination, Navigation, Autoplay]}
+              spaceBetween={30}
+              slidesPerView={1}
+              autoplay={{ delay: 1000, disableOnInteraction: false }}
+              pagination={{ clickable: true, el: '.swiper-nav-pagination', bulletActiveClass: '!bg-[#c68b59]' }}
+              navigation={{
+                nextEl: '.swiper-btn-next',
+                prevEl: '.swiper-btn-prev',
+              }}
+              breakpoints={{
+                640: { slidesPerView: 2 },
+                1024: { slidesPerView: 3 }
+              }}
+              className="w-full pb-12"
+            >
+              {aiSolutions.map((solution) => {
+                const Icon = solution.icon;
+                return (
+                  <SwiperSlide key={solution.title} className="h-auto">
+                    <div className="relative flex flex-col justify-between h-full min-h-[380px] rounded-2xl border border-white/10 bg-white/[0.02] p-8 shadow-xl backdrop-blur-md overflow-hidden hover:border-[#c68b59]/30 group transition-all duration-300">
+                      {/* Hover Glow Gradient */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-[#c68b59]/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
                       
-                      <p className="text-sm font-light font-ui leading-relaxed text-muted/70">
-                        {solution.desc}
-                      </p>
-                    </div>
+                      <div className="relative z-10">
+                        {/* Big Card Number */}
+                        <span className="block font-serif text-5xl md:text-6xl font-light text-white/5 group-hover:text-[#c68b59]/15 select-none mb-6 transition-colors duration-300">
+                          {solution.number}
+                        </span>
 
-                    <div className="mt-8 pt-4 border-t border-white/5 flex items-center justify-between relative z-10">
-                      <span className="text-accent text-lg">
-                        <Icon />
-                      </span>
-                      <a href="/free-consultation" className="text-xs font-semibold font-ui tracking-widest text-[#c68b59] hover:underline uppercase flex items-center gap-1.5">
-                        Learn More <FaArrowRight className="text-[10px]" />
-                      </a>
+                        <h3 className="font-serif text-2xl font-semibold text-white mb-4 group-hover:text-[#c68b59] transition-colors">
+                          {solution.title}
+                        </h3>
+                        
+                        <p className="text-sm font-light font-ui leading-relaxed text-muted/70">
+                          {solution.desc}
+                        </p>
+                      </div>
+
+                      <div className="mt-8 pt-4 border-t border-white/5 flex items-center justify-between relative z-10">
+                        <span className="text-accent text-lg">
+                          <Icon />
+                        </span>
+                        <a href="/free-consultation" className="text-xs font-semibold font-ui tracking-widest text-[#c68b59] hover:underline uppercase flex items-center gap-1.5">
+                          Learn More <FaArrowRight className="text-[10px]" />
+                        </a>
+                      </div>
                     </div>
-                  </div>
-                </SwiperSlide>
-              );
-            })}
-          </Swiper>
+                  </SwiperSlide>
+                );
+              })}
+            </Swiper>
+
+            <button
+              aria-label="Next AI solution"
+              className="swiper-btn-next absolute right-0 top-1/2 z-20 flex h-12 w-12 translate-x-3 -translate-y-1/2 items-center justify-center rounded-lg border border-white/10 bg-white text-[#081F52] shadow-[0_12px_30px_rgba(0,0,0,0.28)] transition-all duration-300 hover:bg-[#c68b59] hover:text-white focus:outline-none md:translate-x-6"
+            >
+              <FaAngleRight className="text-lg" />
+            </button>
+          </div>
 
           <div className="swiper-nav-pagination flex justify-center mt-6 gap-2" />
 
@@ -647,6 +657,21 @@ export default function AISolutions() {
 
       {/* ── 7. TECHNOLOGIES WE USE ── */}
       <section className="bg-white py-24 border-b border-[rgba(198,139,89,0.12)]">
+        <style>{`
+          @keyframes tech-scroll-left {
+            from { transform: translateX(0); }
+            to { transform: translateX(-50%); }
+          }
+
+          @keyframes tech-scroll-right {
+            from { transform: translateX(-50%); }
+            to { transform: translateX(0); }
+          }
+
+          .tech-scroll-row:hover .tech-scroll-track {
+            animation-play-state: paused;
+          }
+        `}</style>
         <div className="container-page text-center">
           <span className="inline-flex items-center gap-2 rounded-full border border-[#c68b59]/30 bg-[#c68b59]/10 px-4 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-[#c68b59] mb-4">
             Tech Stack Integration
@@ -655,20 +680,50 @@ export default function AISolutions() {
             Technologies We Integrate.
           </h2>
 
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-6 max-w-5xl mx-auto">
-            {technologies.map((tech, idx) => {
-              const Icon = tech.icon;
-              return (
-                <motion.div
-                  key={tech.name}
-                  whileHover={{ scale: 1.06, borderColor: 'rgba(198,139,89,0.5)' }}
-                  className="flex flex-col items-center p-6 border border-[#c68b59]/15 rounded-2xl bg-white shadow-sm cursor-default transition-all duration-300"
-                >
-                  <Icon className="text-3xl text-[#c68b59] mb-3" />
-                  <span className="text-sm font-medium font-ui text-[#081F52] tracking-wide">{tech.name}</span>
-                </motion.div>
-              );
-            })}
+          <div className="mx-auto max-w-5xl space-y-6 overflow-hidden">
+            <div className="tech-scroll-row overflow-hidden">
+              <div className="tech-scroll-track flex w-max" style={{ animation: 'tech-scroll-left 28s linear infinite' }}>
+                {[0, 1].map((group) => (
+                  <div key={group} className="flex gap-6 pr-6">
+                    {topTechnologies.map((tech) => {
+                      const Icon = tech.icon;
+                      return (
+                        <motion.div
+                          key={`${tech.name}-${group}`}
+                          whileHover={{ scale: 1.06, borderColor: 'rgba(198,139,89,0.5)' }}
+                          className="flex h-28 w-40 flex-shrink-0 flex-col items-center justify-center rounded-2xl border border-[#c68b59]/15 bg-white p-6 shadow-sm cursor-default transition-all duration-300 sm:w-44"
+                        >
+                          <Icon className="text-3xl text-[#c68b59] mb-3" />
+                          <span className="text-sm font-medium font-ui text-[#081F52] tracking-wide">{tech.name}</span>
+                        </motion.div>
+                      );
+                    })}
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="tech-scroll-row overflow-hidden">
+              <div className="tech-scroll-track flex w-max" style={{ animation: 'tech-scroll-right 28s linear infinite' }}>
+                {[0, 1].map((group) => (
+                  <div key={group} className="flex gap-6 pr-6">
+                    {bottomTechnologies.map((tech) => {
+                      const Icon = tech.icon;
+                      return (
+                        <motion.div
+                          key={`${tech.name}-${group}`}
+                          whileHover={{ scale: 1.06, borderColor: 'rgba(198,139,89,0.5)' }}
+                          className="flex h-28 w-40 flex-shrink-0 flex-col items-center justify-center rounded-2xl border border-[#c68b59]/15 bg-white p-6 shadow-sm cursor-default transition-all duration-300 sm:w-44"
+                        >
+                          <Icon className="text-3xl text-[#c68b59] mb-3" />
+                          <span className="text-sm font-medium font-ui text-[#081F52] tracking-wide">{tech.name}</span>
+                        </motion.div>
+                      );
+                    })}
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
 
         </div>
