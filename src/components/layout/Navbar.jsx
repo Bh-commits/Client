@@ -49,7 +49,7 @@ export function Navbar() {
 
   return (
     <motion.header
-      className="fixed left-0 right-0 top-0 z-50 transition-all duration-500"
+      className="fixed left-0 right-0 top-0 z-50 transition-[background-color,border-color,box-shadow] duration-300"
       style={
         scrolled
           ? {
