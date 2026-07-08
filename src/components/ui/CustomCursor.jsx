@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from 'framer-motion';
    - Outer ring (slow, large) + Inner dot (fast, small)
    - Cursor trail particles: 3 hardware-accelerated trail dots
    - Glow on hover over interactive elements
+   - Auto-idling animation loop to maximize scroll performance
    - Hidden on touch/mobile
    - Does NOT block scroll events
 ───────────────────────────────────────── */
@@ -47,6 +48,7 @@ export function CustomCursor() {
     let t3X = 0, t3Y = 0;
 
     let animId;
+    let isRunning = false;
 
     function lerp(a, b, n) {
       return a + (b - a) * n;
@@ -55,9 +57,16 @@ export function CustomCursor() {
     function onMouseMove(e) {
       dotX = e.clientX;
       dotY = e.clientY;
+
       if (!visibleRef.current) {
         visibleRef.current = true;
         setVisible(true);
+      }
+
+      // Start the animation loop only when the mouse moves
+      if (!isRunning) {
+        isRunning = true;
+        animId = requestAnimationFrame(animate);
       }
     }
 
@@ -117,9 +126,21 @@ export function CustomCursor() {
         trail3Ref.current.style.transform = `translate3d(${t3X - 2}px, ${t3Y - 2}px, 0)`;
       }
 
-      animId = requestAnimationFrame(animate);
+      // Check if all positions have converged to mouse coordinates
+      const ringDist = Math.hypot(ringX - dotX, ringY - dotY);
+      const trailDist = Math.hypot(t3X - dotX, t3Y - dotY);
+
+      if (ringDist < 0.15 && trailDist < 0.15) {
+        // Snap to destination and pause the animation loop to save CPU/GPU cycles during scroll
+        ringX = dotX; ringY = dotY;
+        t1X = dotX; t1Y = dotY;
+        t2X = dotX; t2Y = dotY;
+        t3X = dotX; t3Y = dotY;
+        isRunning = false;
+      } else {
+        animId = requestAnimationFrame(animate);
+      }
     }
-    animId = requestAnimationFrame(animate);
 
     document.addEventListener('mousemove', onMouseMove, { passive: true });
     document.addEventListener('mouseleave', onMouseLeave, { passive: true });
