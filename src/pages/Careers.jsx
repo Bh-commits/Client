@@ -8,6 +8,9 @@ import {
 } from 'react-icons/fa';
 import { PageTransition } from '../components/ui/PageTransition';
 import { SEO } from '../components/ui/SEO';
+import { publicApi } from '../services/publicApi';
+import { getErrorMessage } from '../services/http';
+import { useToast } from '../context/ToastContext';
 
 /* ── Animated Counter ── */
 function Counter({ end, suffix = '', label }) {
@@ -140,8 +143,10 @@ export default function Careers() {
   const [filter, setFilter] = useState('All');
   const [search, setSearch] = useState('');
   const [activeJob, setActiveJob] = useState(null);
-  const [form, setForm] = useState({ name: '', email: '', phone: '', linkedin: '', portfolio: '', resume: '', message: '' });
+  const [form, setForm] = useState({ name: '', email: '', phone: '', linkedin: '', portfolio: '', resume: null, message: '' });
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const { pushToast } = useToast();
 
   const timelineRef = useRef(null);
   const { scrollYProgress } = useScroll({ target: timelineRef, offset: ['start center', 'end center'] });
@@ -153,10 +158,43 @@ export default function Careers() {
     return matchDept && matchSearch;
   });
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setSubmitted(true);
-    setTimeout(() => { setSubmitted(false); setActiveJob(null); setForm({ name:'',email:'',phone:'',linkedin:'',portfolio:'',resume:'',message:'' }); }, 3000);
+    setLoading(true);
+
+    const formData = new FormData();
+    formData.append('fullName', form.name);
+    formData.append('email', form.email);
+    formData.append('phone', form.phone);
+    formData.append('linkedin', form.linkedin || '');
+    formData.append('portfolio', form.portfolio || '');
+    formData.append('coverMessage', form.message || '');
+
+    if (form.resume) {
+      formData.append('resume', form.resume);
+    } else {
+      pushToast('Please select a resume file to upload.', 'error');
+      setLoading(false);
+      return;
+    }
+
+    // fallback target job ID or generic application
+    const jobId = activeJob?.id || 'general';
+
+    try {
+      await publicApi.applyForJob(jobId, formData);
+      setSubmitted(true);
+      pushToast('Application submitted successfully!', 'success');
+      setTimeout(() => {
+        setSubmitted(false);
+        setActiveJob(null);
+        setForm({ name: '', email: '', phone: '', linkedin: '', portfolio: '', resume: null, message: '' });
+      }, 3000);
+    } catch (err) {
+      pushToast(getErrorMessage(err), 'error');
+    } finally {
+      setLoading(false);
+    }
   };
 
   const cardVariants = {
@@ -484,14 +522,15 @@ export default function Careers() {
               We're always looking for talented people. Send us your resume and we'll reach out.
             </p>
             <div className="flex flex-col sm:flex-row justify-center gap-4">
-              <motion.a href="mailto:careers@ideaclapindia.com"
+              <motion.button
+                onClick={() => setActiveJob({ id: 'general', title: 'General Application', dept: 'General', type: 'Full-time', mode: 'Remote', duration: 'Permanent', location: 'Virtual PAN India', stipend: 'Competitive Salary', skills: ['Self Motivation', 'Growth Mindset'] })}
                 whileHover={{ y: -6, scale: 1.03 }} whileTap={{ y: -1, scale: 0.98 }}
                 transition={{ type: 'spring', stiffness: 400, damping: 15 }}
                 className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full px-8 py-3.5 text-sm font-semibold bg-white text-[#081F52] shadow-soft hover:shadow-[0_12px_32px_rgba(255,255,255,0.25)] transition-all duration-300">
-                <FaPaperPlane className="text-xs" /> Send Your Resume
-              </motion.a>
+                <FaPaperPlane className="text-xs" /> Upload Resume
+              </motion.button>
             </div>
-            <p className="mt-6 text-white/40 text-xs font-ui tracking-widest">careers@ideaclapindia.com</p>
+            <p className="mt-6 text-white/40 text-xs font-ui tracking-widest">operations@ideaclapindia.com</p>
           </motion.div>
         </div>
       </section>
@@ -574,16 +613,28 @@ export default function Careers() {
                       { key: 'phone', label: 'Phone Number', type: 'tel', required: true },
                       { key: 'linkedin', label: 'LinkedIn Profile URL', type: 'url', required: false },
                       { key: 'portfolio', label: 'Portfolio / GitHub (optional)', type: 'url', required: false },
-                      { key: 'resume', label: 'Resume Link (Google Drive / Dropbox)', type: 'url', required: true },
+                      { key: 'resume', label: 'Upload Resume (PDF, DOC, DOCX)', type: 'file', required: true },
                     ].map(field => (
                       <div key={field.key}>
                         <label className="block text-xs font-semibold font-ui uppercase tracking-widest text-navy/50 mb-1.5">{field.label}</label>
-                        <input type={field.type} required={field.required}
-                          value={form[field.key]}
-                          onChange={e => setForm(f => ({ ...f, [field.key]: e.target.value }))}
-                          className="w-full px-4 py-3 rounded-xl border border-navy/12 bg-white text-sm font-ui text-navy placeholder-navy/30 focus:outline-none focus:border-[#c68b59]/60 transition-colors"
-                          placeholder={field.label}
-                        />
+                        {field.type === 'file' ? (
+                          <input
+                            type="file"
+                            required={field.required}
+                            accept=".pdf,.doc,.docx"
+                            onChange={e => setForm(f => ({ ...f, [field.key]: e.target.files[0] }))}
+                            className="w-full px-4 py-3 rounded-xl border border-navy/12 bg-white text-sm font-ui text-navy focus:outline-none focus:border-[#c68b59]/60 transition-colors"
+                          />
+                        ) : (
+                          <input
+                            type={field.type}
+                            required={field.required}
+                            value={form[field.key] || ''}
+                            onChange={e => setForm(f => ({ ...f, [field.key]: e.target.value }))}
+                            className="w-full px-4 py-3 rounded-xl border border-navy/12 bg-white text-sm font-ui text-navy placeholder-navy/30 focus:outline-none focus:border-[#c68b59]/60 transition-colors"
+                            placeholder={field.label}
+                          />
+                        )}
                       </div>
                     ))}
                     <div>
@@ -594,10 +645,11 @@ export default function Careers() {
                         placeholder="Tell us why you're a great fit..." />
                     </div>
                     <motion.button type="submit"
+                      disabled={loading}
                       whileHover={{ y: -4, scale: 1.02 }} whileTap={{ scale: 0.97 }}
                       transition={{ type: 'spring', stiffness: 400, damping: 15 }}
-                      className="w-full rounded-full py-4 text-sm font-semibold font-ui bg-[#081F52] text-white shadow-[0_8px_24px_rgba(8,31,82,0.3)] hover:shadow-[0_14px_36px_rgba(8,31,82,0.45)] transition-all duration-300">
-                      Submit Application →
+                      className="w-full rounded-full py-4 text-sm font-semibold font-ui bg-[#081F52] text-white shadow-[0_8px_24px_rgba(8,31,82,0.3)] hover:shadow-[0_14px_36px_rgba(8,31,82,0.45)] transition-all duration-300 disabled:opacity-60 disabled:cursor-not-allowed">
+                      {loading ? 'Submitting Application...' : 'Submit Application →'}
                     </motion.button>
                   </form>
                 )}
