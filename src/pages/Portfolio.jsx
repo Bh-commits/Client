@@ -95,8 +95,9 @@ export default function Portfolio() {
       />
 
       {/* ── 2. FEATURED PROJECTS SCROLL SECTION ── */}
-      <section ref={projectsScrollRef} className="relative h-[320vh] bg-white border-b border-[rgba(198,139,89,0.12)]">
-        <div className="sticky top-0 flex h-screen items-center overflow-hidden py-20">
+      <section ref={projectsScrollRef} className="relative relative h-[320vh] bg-cover bg-center bg-no-repeat bg-fixed border-b border-[rgba(198,139,89,0.12)]" style={{ backgroundImage: "url('/careers_bg.png')" }}>
+        <div className="absolute inset-0 bg-white/60 backdrop-blur-[2px] pointer-events-none z-0"></div>
+        <div className="z-10 relative sticky top-0 flex h-screen items-center overflow-hidden py-20">
           <div className="container-page w-full">
 
           {/* Section header row */}
@@ -181,8 +182,9 @@ export default function Portfolio() {
       </section>
 
       {/* ── 3. TECHNOLOGIES WE USE ── */}
-      <section className="bg-white py-20 border-b border-[rgba(198,139,89,0.12)]">
-        <div className="container-page text-center">
+      <section className="relative bg-cover bg-center bg-no-repeat bg-fixed py-20 border-b border-[rgba(198,139,89,0.12)]" style={{ backgroundImage: "url('/careers_bg.png')" }}>
+        <div className="absolute inset-0 bg-white/60 backdrop-blur-[2px] pointer-events-none z-0"></div>
+        <div className="z-10 relative container-page text-center">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}

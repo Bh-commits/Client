@@ -74,8 +74,9 @@ export default function Industries() {
       />
 
       {/* ── 2. INDUSTRIES WE WORK WITH ── */}
-      <section className="bg-white py-24 md:py-32 border-b border-[rgba(198,139,89,0.12)]">
-        <div className="container-page">
+      <section className="relative bg-cover bg-center bg-no-repeat bg-fixed py-24 md:py-32 border-b border-[rgba(198,139,89,0.12)]" style={{ backgroundImage: "url('/careers_bg.png')" }}>
+        <div className="absolute inset-0 bg-white/60 backdrop-blur-[2px] pointer-events-none z-0"></div>
+        <div className="container-page relative z-10">
           <SectionHeader
             eyebrow="Industry Domain"
             title="Industries We Work With."
@@ -119,8 +120,9 @@ export default function Industries() {
       </section>
 
       {/* ── 3. WHY INDUSTRY-FOCUSED SOLUTIONS ── */}
-      <section className="bg-white py-24 border-b border-[rgba(198,139,89,0.12)]">
-        <div className="container-page max-w-4xl text-center">
+      <section className="relative bg-cover bg-center bg-no-repeat bg-fixed py-24 border-b border-[rgba(198,139,89,0.12)]" style={{ backgroundImage: "url('/careers_bg.png')" }}>
+        <div className="absolute inset-0 bg-white/60 backdrop-blur-[2px] pointer-events-none z-0"></div>
+        <div className="z-10 relative container-page max-w-4xl text-center">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -144,8 +146,9 @@ export default function Industries() {
       </section>
 
       {/* ── 4. OUR APPROACH TIMELINE ── */}
-      <section className="bg-white py-24 md:py-32 overflow-hidden border-b border-[rgba(198,139,89,0.12)]">
-        <div className="container-page">
+      <section className="relative bg-cover bg-center bg-no-repeat bg-fixed py-24 md:py-32 overflow-hidden border-b border-[rgba(198,139,89,0.12)]" style={{ backgroundImage: "url('/careers_bg.png')" }}>
+        <div className="absolute inset-0 bg-white/60 backdrop-blur-[2px] pointer-events-none z-0"></div>
+        <div className="container-page relative z-10">
           <SectionHeader
             eyebrow="Methodology"
             title="Our Approach."

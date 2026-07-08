@@ -98,8 +98,9 @@ export default function Contact() {
       />
 
       {/* ── HERO HEADER ── */}
-      <section className="bg-white border-b border-[rgba(198,139,89,0.12)] pt-28 pb-16">
-        <div className="container-page max-w-4xl">
+      <section className="relative bg-cover bg-center bg-no-repeat bg-fixed border-b border-[rgba(198,139,89,0.12)] pt-28 pb-16" style={{ backgroundImage: "url('/careers_bg.png')" }}>
+        <div className="absolute inset-0 bg-white/60 backdrop-blur-[2px] pointer-events-none z-0"></div>
+        <div className="z-10 relative container-page max-w-4xl">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -210,8 +211,9 @@ export default function Contact() {
       </section>
 
       {/* ── FAQ QUICK LINKS ── */}
-      <section className="bg-white py-20 border-t border-[rgba(198,139,89,0.12)]">
-        <div className="container-page">
+      <section className="relative bg-cover bg-center bg-no-repeat bg-fixed py-20 border-t border-[rgba(198,139,89,0.12)]" style={{ backgroundImage: "url('/careers_bg.png')" }}>
+        <div className="absolute inset-0 bg-white/60 backdrop-blur-[2px] pointer-events-none z-0"></div>
+        <div className="container-page relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}

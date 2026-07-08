@@ -374,8 +374,9 @@ export default function AISolutions() {
       </section>
 
       {/* ── 2. WHY BUSINESSES NEED AI ── */}
-      <section className="bg-white py-24 md:py-32 border-b border-[rgba(198,139,89,0.12)]">
-        <div className="container-page">
+      <section className="relative bg-cover bg-center bg-no-repeat bg-fixed py-24 md:py-32 border-b border-[rgba(198,139,89,0.12)]" style={{ backgroundImage: "url('/careers_bg.png')" }}>
+        <div className="absolute inset-0 bg-white/60 backdrop-blur-[2px] pointer-events-none z-0"></div>
+        <div className="container-page relative z-10">
           
           <div className="grid gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:gap-20 mb-20 items-end">
             <div>
@@ -513,8 +514,9 @@ export default function AISolutions() {
       </section>
 
       {/* ── 4. HOW IDEACLAP AI WORKS ── */}
-      <section className="bg-white py-24 md:py-32 overflow-hidden border-b border-[rgba(198,139,89,0.12)]">
-        <div className="container-page">
+      <section className="relative bg-cover bg-center bg-no-repeat bg-fixed py-24 md:py-32 overflow-hidden border-b border-[rgba(198,139,89,0.12)]" style={{ backgroundImage: "url('/careers_bg.png')" }}>
+        <div className="absolute inset-0 bg-white/60 backdrop-blur-[2px] pointer-events-none z-0"></div>
+        <div className="container-page relative z-10">
           
           <div className="text-center max-w-3xl mx-auto mb-20">
             <span className="inline-flex items-center gap-2 rounded-full border border-[#c68b59]/30 bg-[#c68b59]/10 px-4 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-[#c68b59] mb-4">
@@ -603,8 +605,9 @@ export default function AISolutions() {
       </section>
 
       {/* ── 5. AI SOLUTIONS FOR EVERY INDUSTRY ── */}
-      <section className="bg-white py-24 md:py-32">
-        <div className="container-page text-center">
+      <section className="relative bg-cover bg-center bg-no-repeat bg-fixed py-24 md:py-32" style={{ backgroundImage: "url('/careers_bg.png')" }}>
+        <div className="absolute inset-0 bg-white/60 backdrop-blur-[2px] pointer-events-none z-0"></div>
+        <div className="z-10 relative container-page text-center">
           
           <span className="inline-flex items-center gap-2 rounded-full border border-[#c68b59]/30 bg-[#c68b59]/10 px-4 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-[#c68b59] mb-4">
             Cross-Sector Capabilities
@@ -678,7 +681,8 @@ export default function AISolutions() {
       </section>
 
       {/* ── 7. TECHNOLOGIES WE USE ── */}
-      <section className="bg-white py-24 border-b border-[rgba(198,139,89,0.12)]">
+      <section className="relative bg-cover bg-center bg-no-repeat bg-fixed py-24 border-b border-[rgba(198,139,89,0.12)]" style={{ backgroundImage: "url('/careers_bg.png')" }}>
+        <div className="absolute inset-0 bg-white/60 backdrop-blur-[2px] pointer-events-none z-0"></div>
         <style>{`
           @keyframes tech-scroll-left {
             from { transform: translateX(0); }

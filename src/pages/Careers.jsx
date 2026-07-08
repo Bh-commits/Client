@@ -278,8 +278,9 @@ export default function Careers() {
       {/* ══════════════════════════════════════════
           2. WHY WORK WITH IDEACLAP
       ══════════════════════════════════════════ */}
-      <section id="life" className="bg-white py-24 md:py-32 border-b border-[rgba(198,139,89,0.12)]">
-        <div className="container-page">
+      <section id="life" className="relative bg-cover bg-center bg-no-repeat bg-fixed py-24 md:py-32 border-b border-[rgba(198,139,89,0.12)]" style={{ backgroundImage: "url('/careers_bg.png')" }}>
+        <div className="absolute inset-0 bg-white/60 backdrop-blur-[2px] pointer-events-none z-0"></div>
+        <div className="container-page relative z-10">
           <motion.div className="text-center mb-16"
             initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }} transition={{ type: 'spring', stiffness: 100, damping: 15 }}>
@@ -325,8 +326,9 @@ export default function Careers() {
       {/* ══════════════════════════════════════════
           4. CURRENT OPENINGS
       ══════════════════════════════════════════ */}
-      <section id="openings" className="bg-white py-24 md:py-32 border-b border-[rgba(198,139,89,0.12)]">
-        <div className="container-page">
+      <section id="openings" className="relative bg-cover bg-center bg-no-repeat bg-fixed py-24 md:py-32 border-b border-[rgba(198,139,89,0.12)]" style={{ backgroundImage: "url('/careers_bg.png')" }}>
+        <div className="absolute inset-0 bg-white/60 backdrop-blur-[2px] pointer-events-none z-0"></div>
+        <div className="container-page relative z-10">
           <motion.div className="text-center mb-12"
             initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }} transition={{ type: 'spring', stiffness: 100, damping: 15 }}>
@@ -408,8 +410,9 @@ export default function Careers() {
       {/* ══════════════════════════════════════════
           5. HIRING PROCESS TIMELINE
       ══════════════════════════════════════════ */}
-      <section className="bg-white py-24 md:py-32 border-b border-[rgba(198,139,89,0.12)] overflow-hidden">
-        <div className="container-page">
+      <section className="relative bg-cover bg-center bg-no-repeat bg-fixed py-24 md:py-32 border-b border-[rgba(198,139,89,0.12)] overflow-hidden" style={{ backgroundImage: "url('/careers_bg.png')" }}>
+        <div className="absolute inset-0 bg-white/60 backdrop-blur-[2px] pointer-events-none z-0"></div>
+        <div className="container-page relative z-10">
           <motion.div className="text-center mb-16"
             initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }} transition={{ type: 'spring', stiffness: 100, damping: 15 }}>
@@ -474,8 +477,9 @@ export default function Careers() {
       {/* ══════════════════════════════════════════
           6. BENEFITS
       ══════════════════════════════════════════ */}
-      <section className="bg-white py-24 md:py-32 border-b border-[rgba(198,139,89,0.12)]">
-        <div className="container-page">
+      <section className="relative bg-cover bg-center bg-no-repeat bg-fixed py-24 md:py-32 border-b border-[rgba(198,139,89,0.12)]" style={{ backgroundImage: "url('/careers_bg.png')" }}>
+        <div className="absolute inset-0 bg-white/60 backdrop-blur-[2px] pointer-events-none z-0"></div>
+        <div className="container-page relative z-10">
           <motion.div className="text-center mb-16"
             initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }} transition={{ type: 'spring', stiffness: 100, damping: 15 }}>

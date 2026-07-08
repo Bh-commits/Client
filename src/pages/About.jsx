@@ -16,8 +16,9 @@ export default function About() {
       />
       
       {/* ── Our Belief Banner (Minimalist) ── */}
-      <section className="bg-white pt-24 pb-20 border-b border-gray-200">
-        <div className="container-page text-center">
+      <section className="relative bg-cover bg-center bg-no-repeat bg-fixed pt-24 pb-20 border-b border-gray-200" style={{ backgroundImage: "url('/careers_bg.png')" }}>
+        <div className="absolute inset-0 bg-white/60 backdrop-blur-[2px] pointer-events-none z-0"></div>
+        <div className="z-10 relative container-page text-center">
           <AnimatedSection>
             <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#c68b59] mb-6">Our Belief</p>
             <h2 className="font-serif text-4xl md:text-6xl text-ink leading-tight max-w-4xl mx-auto">
@@ -32,8 +33,9 @@ export default function About() {
       </section>
 
       {/* ── How IdeaClap India Private Limited Works: Minimalist Timeline ── */}
-      <section className="bg-white py-20 md:py-32 overflow-hidden">
-        <div className="container-page">
+      <section className="relative bg-cover bg-center bg-no-repeat bg-fixed py-20 md:py-32 overflow-hidden" style={{ backgroundImage: "url('/careers_bg.png')" }}>
+        <div className="absolute inset-0 bg-white/60 backdrop-blur-[2px] pointer-events-none z-0"></div>
+        <div className="container-page relative z-10">
           
           <AnimatedSection>
             <div className="mb-24 text-center max-w-3xl mx-auto">
@@ -107,8 +109,9 @@ export default function About() {
         </div>
       </section>
 
-      <section className="bg-white py-20 md:py-28 border-t border-[rgba(198,139,89,0.15)]">
-        <div className="container-page text-center">
+      <section className="relative bg-cover bg-center bg-no-repeat bg-fixed py-20 md:py-28 border-t border-[rgba(198,139,89,0.15)]" style={{ backgroundImage: "url('/careers_bg.png')" }}>
+        <div className="absolute inset-0 bg-white/60 backdrop-blur-[2px] pointer-events-none z-0"></div>
+        <div className="z-10 relative container-page text-center">
           <AnimatedSection>
             <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#c68b59] mb-6">What We Optimize</p>
             <h2 className="font-serif text-3xl md:text-5xl text-ink leading-tight max-w-4xl mx-auto">
