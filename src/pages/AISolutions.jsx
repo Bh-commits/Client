@@ -1,11 +1,12 @@
 import { useState, useEffect, useRef } from 'react';
-import { motion, AnimatePresence, useScroll, useSpring, useTransform, useInView } from 'framer-motion';
+import { motion, AnimatePresence, useScroll, useSpring, useTransform, useInView, useMotionValue } from 'framer-motion';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { EffectCreative, Pagination, Navigation, Autoplay } from 'swiper/modules';
 import { 
   FaRobot, FaPhone, FaBolt, FaUserCheck, FaShareAlt, FaBook, 
   FaChartLine, FaArrowRight, FaChevronDown, FaCheckCircle, FaLock, 
-  FaTrophy, FaServer, FaCode, FaLaptopCode, FaCheck, FaRocket, FaAngleLeft, FaAngleRight
+  FaTrophy, FaServer, FaCode, FaLaptopCode, FaCheck, FaRocket, FaAngleLeft, FaAngleRight,
+  FaVolumeMute, FaVolumeUp
 } from 'react-icons/fa';
 import { SEO } from '../components/ui/SEO';
 import { PageTransition } from '../components/ui/PageTransition';
@@ -118,6 +119,27 @@ function AccordionItem({ question, answer, isOpen, onClick }) {
 
 export default function AISolutions() {
   const [openFaq, setOpenFaq] = useState(null);
+  const [isMuted, setIsMuted] = useState(true);
+
+  // 3D Card Hover Tilt values
+  const cardX = useMotionValue(0);
+  const cardY = useMotionValue(0);
+  const tiltX = useSpring(useTransform(cardY, [-0.5, 0.5], [6, -6]), { stiffness: 100, damping: 20 });
+  const tiltY = useSpring(useTransform(cardX, [-0.5, 0.5], [-6, 6]), { stiffness: 100, damping: 20 });
+
+  const handleCardMouseMove = (e) => {
+    const el = e.currentTarget;
+    const rect = el.getBoundingClientRect();
+    const x = (e.clientX - rect.left) / rect.width - 0.5;
+    const y = (e.clientY - rect.top) / rect.height - 0.5;
+    cardX.set(x);
+    cardY.set(y);
+  };
+
+  const handleCardMouseLeave = () => {
+    cardX.set(0);
+    cardY.set(0);
+  };
 
   // Parallax values
   const heroRef = useRef(null);
@@ -212,7 +234,7 @@ export default function AISolutions() {
         <div className="absolute -top-1/4 left-1/4 w-[600px] h-[600px] rounded-full bg-[#0B2F78]/40 blur-[130px] pointer-events-none z-0" />
         <div className="absolute -bottom-1/4 right-1/4 w-[500px] h-[500px] rounded-full bg-[#c68b59]/10 blur-[120px] pointer-events-none z-0" />
 
-        <div className="container-page relative z-10 grid gap-16 lg:grid-cols-[1.1fr_0.9fr] items-center py-16">
+        <div className="container-page relative z-10 grid gap-16 lg:grid-cols-2 items-center py-16">
           
           {/* Left panel: text reveal (one by one) */}
           <motion.div
@@ -298,52 +320,52 @@ export default function AISolutions() {
             </motion.div>
           </motion.div>
 
-          {/* Right panel: Floating 3D Metric Dashboard Illustration */}
+          {/* Right panel: Floating 3D Metric Dashboard Illustration replaced by Video */}
           <motion.div 
             style={{ y: yParallax }}
             initial={{ opacity: 0, scale: 0.85, y: 60 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.6 }}
-            className="relative flex justify-center items-center pointer-events-none"
+            className="relative flex justify-center items-center w-full"
           >
             {/* Holographic grid ring background */}
-            <div className="absolute w-[380px] h-[380px] md:w-[480px] md:h-[480px] rounded-full border border-white/[0.03] animate-spin-slow z-0" />
-            <div className="absolute w-[280px] h-[280px] md:w-[350px] md:h-[350px] rounded-full border border-[#c68b59]/5 z-0" />
+            <div className="absolute w-[500px] h-[500px] md:w-[650px] md:h-[650px] rounded-full border border-white/[0.03] animate-spin-slow z-0" />
+            <div className="absolute w-[360px] h-[360px] md:w-[480px] md:h-[480px] rounded-full border border-[#c68b59]/5 z-0" />
+            
+            {/* Ambient Background Glow behind the card */}
+            <div className="absolute -inset-6 rounded-[40px] bg-gradient-to-r from-blue-500/25 to-[#c68b59]/15 blur-3xl opacity-60 z-0 pointer-events-none" />
 
-            {/* Glowing 3D Glass Dashboard Container */}
+            {/* Glowing 3D Glass Video Container */}
             <motion.div 
-              animate={{ y: [0, -18, 0] }}
-              transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-              className="relative z-10 w-full max-w-[420px] rounded-3xl border border-white/10 bg-white/[0.02] p-6 shadow-2xl backdrop-blur-xl"
+              style={{ rotateX: tiltX, rotateY: tiltY, transformStyle: 'preserve-3d' }}
+              onMouseMove={handleCardMouseMove}
+              onMouseLeave={handleCardMouseLeave}
+              className="relative z-10 w-full max-w-none lg:max-w-[760px] xl:max-w-[850px] lg:-mr-12 xl:-mr-20 rounded-[32px] border border-white/10 bg-gradient-to-b from-white/10 to-white/[0.02] p-3.5 shadow-[0_32px_80px_rgba(0,0,0,0.8),_0_0_40px_rgba(59,130,246,0.15)] backdrop-blur-2xl cursor-default transition-all duration-300 hover:border-white/20"
             >
-              {/* Header */}
-              <div className="flex items-center justify-between border-b border-white/5 pb-4 mb-4">
-                <div className="flex items-center gap-2.5">
-                  <span className="h-3 w-3 rounded-full bg-[#c68b59] animate-pulse" />
-                  <span className="text-[11px] font-ui font-semibold uppercase tracking-widest text-[#c68b59]">AI Engine Active</span>
-                </div>
-                <span className="text-[10px] text-muted/50 font-ui tracking-wide">Server latency: 12ms</span>
-              </div>
+              {/* Metallic Accent corners to make card look extremely premium */}
+              <div className="absolute top-0 left-0 w-8 h-8 border-t-2 border-l-2 border-[#c68b59]/50 rounded-tl-[32px] pointer-events-none" />
+              <div className="absolute bottom-0 right-0 w-8 h-8 border-b-2 border-r-2 border-blue-500/50 rounded-br-[32px] pointer-events-none" />
 
-              {/* Metric Card */}
-              <div className="grid grid-cols-2 gap-4 mb-6">
-                <div className="bg-white/[0.01] border border-white/5 rounded-2xl p-4">
-                  <span className="text-[10px] text-muted/50 uppercase font-ui tracking-wide">Inquiries Routed</span>
-                  <div className="text-2xl font-serif text-white font-medium mt-1">42,910</div>
-                </div>
-                <div className="bg-white/[0.01] border border-white/5 rounded-2xl p-4">
-                  <span className="text-[10px] text-muted/50 uppercase font-ui tracking-wide">AI Accuracy</span>
-                  <div className="text-2xl font-serif text-[#c68b59] font-medium mt-1">99.4%</div>
-                </div>
-              </div>
-
-              {/* Pulsing Graph Line */}
-              <div className="h-28 border border-white/5 rounded-2xl bg-white/[0.01] overflow-hidden flex items-end p-2 relative">
-                <div className="absolute inset-x-0 bottom-4 h-px bg-white/5" />
-                <svg className="w-full h-full stroke-[#c68b59]" viewBox="0 0 100 40" preserveAspectRatio="none">
-                  <path d="M 0,20 Q 20,5 40,32 T 80,10 T 100,25" fill="none" strokeWidth="2" strokeDasharray="300" strokeDashoffset="0" className="animate-pulse" />
-                </svg>
-                <div className="absolute bottom-1 right-2 text-[8px] text-muted/30">Data Flow: Realtime</div>
+              <div className="relative overflow-hidden rounded-2xl shadow-inner border border-white/5" style={{ transform: 'translateZ(20px)' }}>
+                <video
+                  src="/ai_solutions_video.mp4"
+                  autoPlay
+                  muted={isMuted}
+                  loop
+                  playsInline
+                  className="w-full object-cover rounded-2xl"
+                  style={{ aspectRatio: '16/9' }}
+                />
+                
+                {/* Volume Overlay Control */}
+                <button
+                  onClick={() => setIsMuted(!isMuted)}
+                  className="absolute bottom-4 right-4 z-20 flex h-11 w-11 items-center justify-center rounded-full border border-white/20 bg-black/60 text-white backdrop-blur-md transition-all hover:scale-105 hover:bg-black/80 active:scale-95 shadow-lg"
+                  aria-label={isMuted ? 'Unmute video' : 'Mute video'}
+                  style={{ transform: 'translateZ(30px)' }}
+                >
+                  {isMuted ? <FaVolumeMute className="text-base" /> : <FaVolumeUp className="text-base" />}
+                </button>
               </div>
             </motion.div>
           </motion.div>

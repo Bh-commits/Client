@@ -1,5 +1,5 @@
-import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
-import { useEffect, useState } from 'react';
+import { motion, useMotionValue, useSpring, useTransform, useScroll } from 'framer-motion';
+import { useEffect, useRef, useState } from 'react';
 import { FaGlobe, FaRobot, FaBullhorn, FaCogs, FaArrowRight } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 
@@ -44,8 +44,8 @@ const services = [
 
 /* ─────────────────────────────────────────
    3D Tilt Card
-───────────────────────────────────────── */
-function TiltCard({ service, index, isEven, isMobile }) {
+   ───────────────────────────────────────── */
+function TiltCard({ service, index, isEven, isMobile, isHorizontal }) {
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
   const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [8, -8]), { stiffness: 200, damping: 20 });
@@ -69,12 +69,12 @@ function TiltCard({ service, index, isEven, isMobile }) {
 
   return (
     <motion.div
-      initial={isMobile ? { opacity: 1, x: 0, y: 0 } : { opacity: 0, x: isEven ? -60 : 60, y: 30 }}
+      initial={isMobile ? { opacity: 1, x: 0, y: 0 } : { opacity: 0, y: 30 }}
       animate={isMobile ? { opacity: 1, x: 0, y: 0 } : undefined}
-      whileInView={{ opacity: 1, x: 0, y: 0 }}
+      whileInView={{ opacity: 1, y: 0 }}
       viewport={isMobile ? { once: true, amount: 0.05 } : { margin: '-80px', once: true }}
       transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: index * 0.08 }}
-      className={`w-full md:w-1/2 pl-16 md:pl-0 ${isEven ? 'md:pr-16 order-1 text-left' : 'md:pl-16 order-2 text-left'}`}
+      className={isHorizontal ? "w-full text-left" : `w-full md:w-1/2 pl-16 md:pl-0 ${isEven ? 'md:pr-16 order-1 text-left' : 'md:pl-16 order-2 text-left'}`}
       style={{ perspective: '1200px' }}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
@@ -178,6 +178,7 @@ function TiltCard({ service, index, isEven, isMobile }) {
 }
 
 export function OurServices() {
+  const containerRef = useRef(null);
   const [isMobile, setIsMobile] = useState(() =>
     typeof window !== 'undefined' ? window.matchMedia('(max-width: 767px)').matches : false
   );
@@ -192,132 +193,119 @@ export function OurServices() {
     return () => mediaQuery.removeEventListener('change', updateMobile);
   }, []);
 
-  return (
-    <section className="relative overflow-hidden py-24 lg:py-32" style={{ background: '#0B1120' }}>
-      {/* Background image */}
-      <div
-        className="absolute inset-0 z-0 opacity-40"
-        style={{
-          backgroundImage: 'url(/hero_bg_blur.png)',
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-        }}
-      />
-      <div className="absolute inset-0 z-0 bg-[#0B1120]/70" />
+  const { scrollYProgress } = useScroll({
+    target: containerRef
+  });
 
-      {/* Grid dots */}
-      <div
-        className="absolute inset-0 z-0 opacity-[0.02] pointer-events-none"
-        style={{
-          backgroundImage: 'radial-gradient(circle, #fff 10%, transparent 11%)',
-          backgroundSize: '28px 28px',
-        }}
-      />
+  const xTranslation = useTransform(scrollYProgress, [0.1, 0.95], ["0%", "-62%"]);
 
-      {/* Background Glows */}
-      <motion.div
-        className="pointer-events-none absolute left-0 top-1/4 h-96 w-96 -translate-x-1/2 rounded-full z-0"
-        style={{ background: 'radial-gradient(circle, rgba(59,130,246,0.12) 0%, transparent 70%)', filter: 'blur(80px)' }}
-        animate={{ scale: [1, 1.2, 1], opacity: [0.5, 1, 0.5] }}
-        transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
-      />
-      <motion.div
-        className="pointer-events-none absolute right-0 bottom-1/4 h-96 w-96 translate-x-1/3 rounded-full z-0"
-        style={{ background: 'radial-gradient(circle, rgba(198,139,89,0.08) 0%, transparent 70%)', filter: 'blur(80px)' }}
-        animate={{ scale: [1, 1.3, 1], opacity: [0.4, 0.8, 0.4] }}
-        transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut', delay: 3 }}
-      />
+  if (isMobile) {
+    return (
+      <section className="relative overflow-hidden py-24" style={{ background: '#0B1120' }}>
+        {/* Background image */}
+        <div
+          className="absolute inset-0 z-0 opacity-40"
+          style={{
+            backgroundImage: 'url(/hero_bg_blur.png)',
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+          }}
+        />
+        <div className="absolute inset-0 z-0 bg-[#0B1120]/70" />
+        <div className="absolute inset-0 z-0 opacity-[0.02] pointer-events-none" style={{ backgroundImage: 'radial-gradient(circle, #fff 10%, transparent 11%)', backgroundSize: '28px 28px' }} />
 
-      <div className="container-page relative z-10">
-        {/* Section Header */}
-        <div className="mx-auto max-w-3xl text-center mb-20">
-          <motion.div
-            initial={isMobile ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
-            animate={isMobile ? { opacity: 1, scale: 1 } : undefined}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={isMobile ? { once: true, amount: 0.05 } : { margin: '-100px', once: true }}
-            transition={{ duration: 0.5 }}
-            className="mb-4 inline-flex items-center gap-2 rounded-full border border-blue-500/20 bg-blue-500/10 px-4 py-1.5 text-xs font-bold tracking-widest text-blue-400 uppercase"
-          >
-            <span className="h-2 w-2 rounded-full bg-blue-500 shadow-[0_0_10px_rgba(59,130,246,0.8)]" />
-            Our Services
-          </motion.div>
-          <motion.h2
-            initial={isMobile ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-            animate={isMobile ? { opacity: 1, y: 0 } : undefined}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={isMobile ? { once: true, amount: 0.05 } : { margin: '-100px', once: true }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="font-serif text-4xl leading-tight text-white md:text-5xl lg:text-6xl"
-          >
-            Everything Your Business Needs to{' '}
-            <span className="italic text-[#c68b59]">Grow.</span>
-          </motion.h2>
-          <motion.p
-            initial={isMobile ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-            animate={isMobile ? { opacity: 1, y: 0 } : undefined}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={isMobile ? { once: true, amount: 0.05 } : { margin: '-100px', once: true }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="mt-6 text-lg text-slate-300/70 font-light leading-relaxed"
-          >
-            From professional websites to AI automation and result-driven marketing, IdeaClap India Private Limited provides complete digital solutions that help businesses attract more customers, increase productivity, and achieve sustainable growth.
-          </motion.p>
-        </div>
+        <div className="container-page relative z-10">
+          {/* Section Header */}
+          <div className="mx-auto max-w-3xl text-center mb-16">
+            <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-blue-500/20 bg-blue-500/10 px-4 py-1.5 text-xs font-bold tracking-widest text-blue-400 uppercase">
+              <span className="h-2 w-2 rounded-full bg-blue-500 shadow-[0_0_10px_rgba(59,130,246,0.8)]" />
+              Our Services
+            </div>
+            <h2 className="font-serif text-4xl leading-tight text-white">
+              Everything Your Business Needs to <span className="italic text-[#c68b59]">Grow.</span>
+            </h2>
+            <p className="mt-6 text-base text-slate-300/70 font-light leading-relaxed">
+              From professional websites to AI automation and result-driven marketing, IdeaClap India Private Limited provides complete digital solutions that help businesses attract more customers, increase productivity, and achieve sustainable growth.
+            </p>
+          </div>
 
-        {/* Timeline Layout */}
-        <div className="relative mx-auto max-w-5xl">
-          {/* Central Vertical Line */}
-          <motion.div
-            className="absolute left-4 md:left-1/2 top-0 bottom-0 w-px -translate-x-1/2"
-            style={{ background: 'linear-gradient(to bottom, rgba(59,130,246,0) 0%, rgba(59,130,246,0.4) 20%, rgba(139,92,246,0.4) 50%, rgba(198,139,89,0.4) 80%, rgba(198,139,89,0) 100%)' }}
-            initial={isMobile ? { scaleY: 1, originY: 0 } : { scaleY: 0, originY: 0 }}
-            animate={isMobile ? { scaleY: 1 } : undefined}
-            whileInView={{ scaleY: 1 }}
-            viewport={isMobile ? { once: true, amount: 0.05 } : { once: true, margin: '-50px' }}
-            transition={{ duration: 1.5, ease: 'easeInOut' }}
-          />
-
-          <div className="flex flex-col gap-12 md:gap-24">
-            {services.map((service, index) => {
-              const isEven = index % 2 === 0;
-              const Icon = service.icon;
-              const c = service.color;
-
-              return (
-                <div key={service.id} className="relative flex flex-col md:flex-row items-center justify-between group">
-
-                  {/* Timeline Node / Icon */}
-                  <motion.div
-                    initial={isMobile ? { scale: 1, opacity: 1 } : { scale: 0, opacity: 0 }}
-                    animate={isMobile ? { scale: 1, opacity: 1 } : undefined}
-                    whileInView={{ scale: 1, opacity: 1 }}
-                    viewport={isMobile ? { once: true, amount: 0.05 } : { margin: '-100px', once: true }}
-                    transition={{ type: 'spring', stiffness: 200, delay: 0.2 }}
-                    className="absolute left-4 md:left-1/2 z-20 flex h-14 w-14 -translate-x-1/2 items-center justify-center rounded-full transition-all duration-300"
-                    style={{
-                      background: '#0B1120',
-                      border: `2px solid ${c}0.3)`,
-                      boxShadow: `0 8px 16px ${c}0.15)`,
-                    }}
-                    whileHover={{
-                      scale: 1.2,
-                      boxShadow: `0 12px 24px ${c}0.35), 0 0 30px ${c}0.2)`,
-                    }}
-                  >
-                    <Icon className="text-xl transition-colors duration-300" style={{ color: `${c}0.85)` }} />
-                  </motion.div>
-
-                  {/* Empty space for alternating layout on Desktop */}
-                  <div className={`hidden md:block w-1/2 ${isEven ? 'order-2' : 'order-1'}`} />
-
-                  {/* 3D Tilt Card */}
-                  <TiltCard service={service} index={index} isEven={isEven} isMobile={isMobile} />
-                </div>
-              );
-            })}
+          <div className="flex flex-col gap-12">
+            {services.map((service, index) => (
+              <div key={service.id} className="relative flex flex-col items-center justify-between group">
+                <TiltCard service={service} index={index} isEven={index % 2 === 0} isMobile={true} isHorizontal={false} />
+              </div>
+            ))}
           </div>
         </div>
+      </section>
+    );
+  }
+
+  // Desktop Horizontal Pinning Scroll Layout
+  return (
+    <section 
+      ref={containerRef}
+      className="relative h-[300vh] bg-[#0B1120]"
+    >
+      {/* Sticky Screen Viewport */}
+      <div className="sticky top-0 flex h-screen items-center overflow-hidden z-10">
+        
+        {/* Background Visual Layers */}
+        <div className="absolute inset-0 z-0 opacity-40" style={{ backgroundImage: 'url(/hero_bg_blur.png)', backgroundSize: 'cover', backgroundPosition: 'center' }} />
+        <div className="absolute inset-0 z-0 bg-[#0B1120]/75" />
+        <div className="absolute inset-0 z-0 opacity-[0.02] pointer-events-none" style={{ backgroundImage: 'radial-gradient(circle, #fff 10%, transparent 11%)', backgroundSize: '28px 28px' }} />
+
+        {/* Ambient Glowing Orbs */}
+        <motion.div
+          className="pointer-events-none absolute left-1/4 top-1/4 h-[500px] w-[500px] rounded-full z-0"
+          style={{ background: 'radial-gradient(circle, rgba(59,130,246,0.1) 0%, transparent 70%)', filter: 'blur(80px)' }}
+          animate={{ scale: [1, 1.2, 1], opacity: [0.5, 0.8, 0.5] }}
+          transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut' }}
+        />
+        <motion.div
+          className="pointer-events-none absolute right-1/4 bottom-1/4 h-[500px] w-[500px] rounded-full z-0"
+          style={{ background: 'radial-gradient(circle, rgba(198,139,89,0.06) 0%, transparent 70%)', filter: 'blur(80px)' }}
+          animate={{ scale: [1, 1.3, 1], opacity: [0.4, 0.7, 0.4] }}
+          transition={{ duration: 12, repeat: Infinity, ease: 'easeInOut', delay: 2 }}
+        />
+
+        {/* Horizontal Container sliding horizontally */}
+        <motion.div 
+          style={{ x: xTranslation }} 
+          className="relative z-10 flex gap-12 items-center pl-[12vw] pr-[20vw] w-max"
+        >
+          {/* Column 1: Sticky Title Card */}
+          <div className="flex flex-col justify-center min-w-[420px] max-w-[460px] mr-8">
+            <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-blue-500/20 bg-blue-500/10 px-4 py-1.5 text-xs font-bold tracking-widest text-blue-400 uppercase w-fit">
+              <span className="h-2 w-2 rounded-full bg-blue-500 shadow-[0_0_10px_rgba(59,130,246,0.8)]" />
+              Our Services
+            </div>
+            <h2 className="font-serif text-4xl md:text-5xl xl:text-6xl leading-tight text-white mb-6">
+              Everything Your Business Needs to <br />
+              <span className="italic text-[#c68b59]">Grow.</span>
+            </h2>
+            <p className="text-base text-slate-300/60 font-light leading-[1.8] tracking-wide">
+              From professional websites and custom software to AI-powered chatbots and performance marketing, IdeaClap India Private Limited helps businesses automate work, find clients, and expand.
+            </p>
+            <div className="mt-8 flex items-center gap-2.5 text-xs font-ui tracking-wider text-slate-400 uppercase">
+              <span>Scroll down to explore</span>
+              <motion.span 
+                animate={{ x: [0, 6, 0] }}
+                transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
+                className="text-[#c68b59] text-base font-bold"
+              >
+                →
+              </motion.span>
+            </div>
+          </div>
+
+          {/* Columns 2-5: Dynamic Tilt Cards */}
+          {services.map((service, index) => (
+            <div key={service.id} className="min-w-[420px] md:min-w-[460px] lg:min-w-[480px]">
+              <TiltCard service={service} index={index} isEven={index % 2 === 0} isMobile={false} isHorizontal={true} />
+            </div>
+          ))}
+        </motion.div>
       </div>
     </section>
   );

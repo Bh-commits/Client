@@ -142,13 +142,13 @@ export function WhyChoose() {
                         : 'border-white/10 bg-navy/40 blur-[2px] opacity-70 scale-95 hover:blur-none hover:opacity-100'
                     }`}
                   >
-                    {/* Background Image */}
-                    <div className="absolute inset-0 z-0 h-full w-full">
+                    {/* Background Image (Zoomed to crop out built-in image text) */}
+                    <div className="absolute inset-0 z-0 h-full w-full overflow-hidden">
                       <img 
                         src={slide.image} 
                         alt={slide.title}
-                        className="h-full w-full object-cover mix-blend-screen opacity-60 transition-transform duration-1000"
-                        style={{ transform: isActive ? 'scale(1.05)' : 'scale(1)' }}
+                        className="h-full w-full object-cover object-bottom mix-blend-screen opacity-55 transition-transform duration-1000"
+                        style={{ transform: isActive ? 'scale(1.45)' : 'scale(1.35)' }}
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-[#081F52] via-[#081F52]/60 to-transparent" />
                     </div>
@@ -161,7 +161,7 @@ export function WhyChoose() {
                       <div className="mb-4 inline-flex items-center rounded-full bg-[#c68b59]/10 px-3 py-1 text-[10px] font-light tracking-[0.18em] text-[#c68b59] border border-[#c68b59]/20 uppercase">
                         {slide.tag}
                       </div>
-                      <p className="text-sm font-light leading-[1.85] tracking-wide text-blue-100/60">
+                      <p className="text-sm font-normal leading-[1.85] tracking-wide text-white/95 drop-shadow-md">
                         {slide.desc}
                       </p>
                     </div>

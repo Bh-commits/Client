@@ -2,12 +2,13 @@ import { useEffect, useState } from 'react';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { Autoplay, EffectCreative, Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { FaLaptopCode, FaRegLightbulb } from 'react-icons/fa';
+import { FaLaptopCode, FaRegLightbulb, FaVolumeMute, FaVolumeUp } from 'react-icons/fa';
 import 'swiper/css';
 import 'swiper/css/effect-creative';
 import 'swiper/css/pagination';
 
 export function CompanyIntro() {
+  const [isMuted, setIsMuted] = useState(true);
   const [isMobile, setIsMobile] = useState(() =>
     typeof window !== 'undefined' ? window.matchMedia('(max-width: 767px)').matches : false
   );
@@ -79,11 +80,21 @@ export function CompanyIntro() {
 
         <div className="container-page relative z-10 flex flex-col gap-8">
           <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-[#061634]/80 shadow-[0_18px_50px_rgba(0,0,0,0.35)]">
-            <img
-              src={images[0]}
-              alt="Digital Solutions"
+            <video
+              src="/company_intro_video.mp4"
+              autoPlay
+              muted={isMuted}
+              loop
+              playsInline
               className="aspect-[4/3] w-full object-cover"
             />
+            <button
+              onClick={() => setIsMuted(!isMuted)}
+              className="absolute top-4 right-4 z-20 flex h-10 w-10 items-center justify-center rounded-full border border-white/20 bg-black/40 text-white backdrop-blur-md transition-all hover:bg-black/60 active:scale-95"
+              aria-label={isMuted ? 'Unmute video' : 'Mute video'}
+            >
+              {isMuted ? <FaVolumeMute /> : <FaVolumeUp />}
+            </button>
             <div className="absolute inset-0 bg-gradient-to-t from-[#081F52]/90 via-[#081F52]/20 to-transparent pointer-events-none" />
             <div className="absolute bottom-4 left-4 right-4 rounded-xl border border-white/10 bg-white/10 p-3 backdrop-blur-md">
               <div className="flex items-center gap-3">
@@ -173,7 +184,7 @@ export function CompanyIntro() {
         transition={{ duration: 12, repeat: Infinity, ease: 'easeInOut', delay: 2 }}
       />
 
-      <div className="container-page relative z-10 grid items-center gap-10 md:gap-16 lg:grid-cols-2 lg:gap-24">
+      <div className="container-page relative z-10 grid items-center gap-10 md:gap-16 lg:grid-cols-2 lg:gap-16">
         
         {/* LEFT: 3D Hover Parallax Image Slider */}
         <motion.div
@@ -182,43 +193,34 @@ export function CompanyIntro() {
           whileInView={{ opacity: 1, scale: 1, rotateY: 0 }}
           viewport={sectionViewport}
           transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-          className="relative perspective-[2000px]"
+          className="relative perspective-[2000px] w-full"
         >
           <motion.div 
             style={{ rotateX: isMobile ? 0 : rotateX, rotateY: isMobile ? 0 : rotateY, transformStyle: 'preserve-3d' }}
-            className="relative rounded-3xl p-1"
+            className="relative rounded-[32px] p-1.5 w-full lg:max-w-[620px] xl:max-w-[700px] lg:-ml-8 xl:-ml-16"
           >
             {/* Animated Gradient Border */}
-            <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-accent/40 via-blue-600/10 to-accent/40 opacity-50 blur-md" />
-            <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-white/10 to-transparent" />
+            <div className="absolute inset-0 rounded-[32px] bg-gradient-to-br from-accent/40 via-blue-600/10 to-accent/40 opacity-50 blur-md" />
+            <div className="absolute inset-0 rounded-[32px] bg-gradient-to-br from-white/10 to-transparent" />
             
-            <div className="relative overflow-hidden rounded-[22px] bg-navy/80 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.7)] ring-1 ring-white/10 backdrop-blur-xl">
-              <Swiper
-                modules={[Autoplay, EffectCreative, Pagination]}
-                effect={isMobile ? 'slide' : 'creative'}
-                creativeEffect={{
-                  prev: { shadow: true, translate: ['-20%', 0, -1], opacity: 0 },
-                  next: { translate: ['100%', 0, 0] },
-                }}
-                autoplay={{ delay: 4000, disableOnInteraction: false }}
-                pagination={{ clickable: true, dynamicBullets: true }}
-                loop={true}
-                className="w-full"
+            <div className="relative overflow-hidden rounded-[26px] bg-navy/80 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.7)] ring-1 ring-white/10 backdrop-blur-xl">
+              <video
+                src="/company_intro_video.mp4"
+                autoPlay
+                muted={isMuted}
+                loop
+                playsInline
+                className="w-full object-cover"
                 style={{ aspectRatio: '4/3' }}
+              />
+              <button
+                onClick={() => setIsMuted(!isMuted)}
+                className="absolute top-4 right-4 z-20 flex h-10 w-10 items-center justify-center rounded-full border border-white/20 bg-black/40 text-white backdrop-blur-md transition-all hover:bg-black/60 active:scale-95"
+                aria-label={isMuted ? 'Unmute video' : 'Mute video'}
               >
-                {images.map((src, i) => (
-                  <SwiperSlide key={i} className="overflow-hidden">
-                    <motion.img
-                      src={src}
-                      alt="Digital Solutions"
-                      className="h-full w-full object-cover"
-                      animate={{ scale: [1, 1.1] }}
-                      transition={{ duration: 10, repeat: Infinity, repeatType: 'reverse', ease: 'linear' }}
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#081F52]/90 via-[#081F52]/20 to-transparent pointer-events-none" />
-                  </SwiperSlide>
-                ))}
-              </Swiper>
+                {isMuted ? <FaVolumeMute /> : <FaVolumeUp />}
+              </button>
+              <div className="absolute inset-0 bg-gradient-to-t from-[#081F52]/90 via-[#081F52]/20 to-transparent pointer-events-none" />
 
               {/* Floating Glass Badge over image */}
               <div 

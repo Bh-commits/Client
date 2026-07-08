@@ -1,6 +1,6 @@
 import { motion, useMotionValue, useSpring, useTransform, AnimatePresence } from 'framer-motion';
 import { useMemo, useEffect, useState } from 'react';
-import { FaCheckCircle, FaRocket, FaBolt, FaRobot, FaShieldAlt } from 'react-icons/fa';
+import { FaCheckCircle, FaRocket, FaBolt, FaRobot, FaShieldAlt, FaVolumeMute, FaVolumeUp } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 
 /* ─────────────────────────────────────────
@@ -478,6 +478,8 @@ function AuroraBackground() {
    Main Hero Section
 ───────────────────────────────────────── */
 export function HeroSection() {
+  const [isMuted, setIsMuted] = useState(true);
+
   /* Mouse parallax */
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
@@ -485,6 +487,8 @@ export function HeroSection() {
   const springY = useSpring(mouseY, { stiffness: 50, damping: 20 });
   const px = useTransform(springX, [-1, 1], [-10, 10]);
   const py = useTransform(springY, [-1, 1], [-10, 10]);
+  const tiltX = useTransform(springY, [-1, 1], [6, -6]);
+  const tiltY = useTransform(springX, [-1, 1], [-6, 6]);
 
   const handleMouseMove = (e) => {
     const rect = e.currentTarget.getBoundingClientRect();
@@ -506,62 +510,30 @@ export function HeroSection() {
     <section
       className="relative min-h-screen overflow-hidden flex items-center"
       style={{ background: '#050816' }}
-      onMouseMove={handleMouseMove}
     >
-      {/* Background image */}
-      <div
-        className="absolute inset-0 z-0 opacity-40"
-        style={{
-          backgroundImage: 'url(/hero_bg_blur.png)',
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-        }}
-      />
-      {/* Dark overlay */}
-      <div className="absolute inset-0 z-0 bg-[#050816]/70" />
+      {/* Immersive Full Screen Video Background */}
+      <div className="absolute inset-0 z-0 w-full h-full overflow-hidden">
+        <video
+          src="/home_hero_video.mp4"
+          autoPlay
+          muted={isMuted}
+          loop
+          playsInline
+          className="w-full h-full object-cover"
+        />
+        {/* Dark Vignette Overlay to maintain contrast for Navbar */}
+        <div className="absolute inset-0 bg-gradient-to-b from-[#050816]/50 via-transparent to-[#050816]" />
+      </div>
 
-      {/* Aurora effect */}
-      <AuroraBackground />
-
-      {/* Stars */}
-      <Stars />
-
-      {/* Moving gradient */}
-      <motion.div
-        className="pointer-events-none absolute inset-0 z-0"
-        animate={{
-          background: [
-            'radial-gradient(ellipse at 20% 50%, rgba(29,78,216,0.15) 0%, transparent 60%)',
-            'radial-gradient(ellipse at 80% 30%, rgba(29,78,216,0.2) 0%, transparent 60%)',
-            'radial-gradient(ellipse at 40% 70%, rgba(29,78,216,0.13) 0%, transparent 60%)',
-            'radial-gradient(ellipse at 20% 50%, rgba(29,78,216,0.15) 0%, transparent 60%)',
-          ]
-        }}
-        transition={{ duration: 12, repeat: Infinity, ease: 'easeInOut' }}
-      />
-
-      {/* Grid dots */}
-      <div
-        className="absolute inset-0 z-0 opacity-[0.025] pointer-events-none"
-        style={{
-          backgroundImage: 'radial-gradient(circle, #fff 10%, transparent 11%)',
-          backgroundSize: '28px 28px',
-        }}
-      />
-
-      {/* AI Particles */}
-      <Particles count={24} />
-
-      {/* Content Grid */}
-      <div className="container-page relative z-10 grid w-full gap-12 py-32 lg:grid-cols-[1fr_1fr] lg:gap-8 lg:py-0 lg:min-h-screen lg:items-center">
-
-        {/* LEFT: Scatter Logo */}
-        <motion.div style={{ x: px, y: py }}>
-          <ScatterLogo />
-        </motion.div>
-
-        {/* RIGHT: Hero Content */}
-        <HeroContent ctaPulse={ctaPulse} />
+      {/* Floating Mute/Unmute Control overlay for immersive video */}
+      <div className="absolute bottom-8 right-8 z-30 flex items-center">
+        <button
+          onClick={() => setIsMuted(!isMuted)}
+          className="flex h-12 w-12 items-center justify-center rounded-full border border-white/20 bg-[#050816]/60 text-white backdrop-blur-md transition-all hover:scale-105 hover:bg-[#050816]/90 active:scale-95 shadow-xl"
+          aria-label={isMuted ? 'Unmute video' : 'Mute video'}
+        >
+          {isMuted ? <FaVolumeMute className="text-lg" /> : <FaVolumeUp className="text-lg" />}
+        </button>
       </div>
 
       {/* Bottom fade */}
