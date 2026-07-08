@@ -7,7 +7,6 @@ import { ErrorBoundary } from './components/ui/ErrorBoundary';
 import { GoogleAnalytics } from './components/ui/GoogleAnalytics';
 import { LoadingScreen } from './components/ui/LoadingScreen';
 import { IntroSplash } from './components/ui/IntroSplash';
-import { SmoothScrollProvider } from './components/ui/SmoothScrollProvider';
 import { CustomCursor } from './components/ui/CustomCursor';
 import { ScrollProgress } from './components/ui/ScrollProgress';
 
@@ -30,7 +29,6 @@ const AdminResource = lazy(() => import('./pages/admin/AdminResource'));
 export default function App() {
   return (
     <ErrorBoundary>
-      <SmoothScrollProvider>
         <CustomCursor />
         <ScrollProgress />
         <IntroSplash />
@@ -64,7 +62,6 @@ export default function App() {
             <Route path="*" element={<Navigate to="/404" replace />} />
           </Routes>
         </Suspense>
-      </SmoothScrollProvider>
     </ErrorBoundary>
   );
 }
