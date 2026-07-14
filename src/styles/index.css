@@ -29,12 +29,14 @@
 
 html {
   scroll-behavior: smooth;
+  overflow-x: hidden;
 }
 
 body {
   margin: 0;
   min-width: 320px;
   background: #050816;
+  overflow-x: hidden;
 }
 
 /* ── Custom Scrollbar ── */

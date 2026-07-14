@@ -74,7 +74,7 @@ function TiltCard({ service, index, isEven, isMobile, isHorizontal }) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={isMobile ? { once: true, amount: 0.05 } : { margin: '-80px', once: true }}
       transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: index * 0.08 }}
-      className={isHorizontal ? "w-full text-left h-full flex flex-col" : `w-full md:w-1/2 pl-16 md:pl-0 ${isEven ? 'md:pr-16 order-1 text-left' : 'md:pl-16 order-2 text-left'}`}
+      className={isHorizontal ? "w-full text-left h-full flex flex-col" : `w-full md:w-1/2 px-4 md:px-0 ${isEven ? 'md:pr-16 order-1 text-left' : 'md:pl-16 order-2 text-left'}`}
       style={{ perspective: '1200px' }}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}

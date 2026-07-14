@@ -141,10 +141,18 @@ export default function AISolutions() {
     cardY.set(0);
   };
 
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 1024);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
   // Parallax values
   const heroRef = useRef(null);
   const { scrollY } = useScroll();
-  const yParallax = useTransform(scrollY, [0, 800], [0, 200]);
+  const yParallax = useTransform(scrollY, [0, 800], [0, isMobile ? 0 : 200]);
 
   // Timeline scroll track
   const timelineRef = useRef(null);
@@ -216,13 +224,7 @@ export default function AISolutions() {
       />
 
       {/* ── 1. HERO SECTION ── */}
-      <section 
-        ref={heroRef} 
-        className="relative min-h-[92vh] flex items-center bg-cover bg-center bg-no-repeat bg-fixed overflow-hidden pt-24"
-        style={{ backgroundImage: "url('/careers_bg.png')" }}
-      >
-        {/* Dark overlay */}
-        <div className="absolute inset-0 bg-[#0B1120]/90 pointer-events-none z-0" />
+      <section ref={heroRef} className="relative min-h-[92vh] flex items-center bg-[#081F52] overflow-hidden pt-24">
         {/* Background Network Graphic Overlay */}
         <div className="absolute inset-0 opacity-15 pointer-events-none z-0">
           <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
@@ -380,9 +382,8 @@ export default function AISolutions() {
       </section>
 
       {/* ── 2. WHY BUSINESSES NEED AI ── */}
-      <section className="relative bg-cover bg-center bg-no-repeat bg-fixed py-24 md:py-32 border-b border-[rgba(198,139,89,0.12)]" style={{ backgroundImage: "url('/careers_bg.png')" }}>
-        <div className="absolute inset-0 bg-white/60 backdrop-blur-[2px] pointer-events-none z-0"></div>
-        <div className="container-page relative z-10">
+      <section className="bg-white py-24 md:py-32 border-b border-[rgba(198,139,89,0.12)]">
+        <div className="container-page">
           
           <div className="grid gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:gap-20 mb-20 items-end">
             <div>
@@ -426,8 +427,7 @@ export default function AISolutions() {
       </section>
 
       {/* ── 3. OUR AI SOLUTIONS (SLIDER LIKE REFERENCED IMAGE) ── */}
-      <section id="solutions" className="relative bg-cover bg-center bg-no-repeat bg-fixed py-24 md:py-32 overflow-hidden border-b border-[rgba(198,139,89,0.12)]" style={{ backgroundImage: "url('/careers_bg.png')" }}>
-        <div className="absolute inset-0 bg-[#081F52]/80 backdrop-blur-[1px] pointer-events-none z-0" />
+      <section id="solutions" className="bg-[#081F52] py-24 md:py-32 relative overflow-hidden">
         {/* Background glow */}
         <div className="absolute right-0 top-1/4 w-[400px] h-[400px] rounded-full bg-[#c68b59]/5 blur-[120px] pointer-events-none" />
 
@@ -521,9 +521,8 @@ export default function AISolutions() {
       </section>
 
       {/* ── 4. HOW IDEACLAP AI WORKS ── */}
-      <section className="relative bg-cover bg-center bg-no-repeat bg-fixed py-24 md:py-32 overflow-hidden border-b border-[rgba(198,139,89,0.12)]" style={{ backgroundImage: "url('/careers_bg.png')" }}>
-        <div className="absolute inset-0 bg-white/60 backdrop-blur-[2px] pointer-events-none z-0"></div>
-        <div className="container-page relative z-10">
+      <section className="bg-white py-24 md:py-32 overflow-hidden border-b border-[rgba(198,139,89,0.12)]">
+        <div className="container-page">
           
           <div className="text-center max-w-3xl mx-auto mb-20">
             <span className="inline-flex items-center gap-2 rounded-full border border-[#c68b59]/30 bg-[#c68b59]/10 px-4 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-[#c68b59] mb-4">
@@ -612,9 +611,8 @@ export default function AISolutions() {
       </section>
 
       {/* ── 5. AI SOLUTIONS FOR EVERY INDUSTRY ── */}
-      <section className="relative bg-cover bg-center bg-no-repeat bg-fixed py-24 md:py-32" style={{ backgroundImage: "url('/careers_bg.png')" }}>
-        <div className="absolute inset-0 bg-white/60 backdrop-blur-[2px] pointer-events-none z-0"></div>
-        <div className="z-10 relative container-page text-center">
+      <section className="bg-white py-24 md:py-32">
+        <div className="container-page text-center">
           
           <span className="inline-flex items-center gap-2 rounded-full border border-[#c68b59]/30 bg-[#c68b59]/10 px-4 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-[#c68b59] mb-4">
             Cross-Sector Capabilities
@@ -643,8 +641,7 @@ export default function AISolutions() {
       </section>
 
       {/* ── 6. WHY CHOOSE IDEACLAP AI (COUNTERS) ── */}
-      <section className="relative bg-cover bg-center bg-no-repeat bg-fixed py-24 md:py-32 overflow-hidden border-b border-[rgba(198,139,89,0.12)]" style={{ backgroundImage: "url('/careers_bg.png')" }}>
-        <div className="absolute inset-0 bg-[#081F52]/80 backdrop-blur-[1px] pointer-events-none z-0" />
+      <section className="bg-[#081F52] py-24 md:py-32 relative overflow-hidden">
         <div className="absolute left-0 bottom-1/4 w-[350px] h-[350px] rounded-full bg-[#0B2F78]/40 blur-[100px] pointer-events-none" />
 
         <div className="container-page relative z-10">
@@ -689,8 +686,7 @@ export default function AISolutions() {
       </section>
 
       {/* ── 7. TECHNOLOGIES WE USE ── */}
-      <section className="relative bg-cover bg-center bg-no-repeat bg-fixed py-24 border-b border-[rgba(198,139,89,0.12)]" style={{ backgroundImage: "url('/careers_bg.png')" }}>
-        <div className="absolute inset-0 bg-white/60 backdrop-blur-[2px] pointer-events-none z-0"></div>
+      <section className="bg-white py-24 border-b border-[rgba(198,139,89,0.12)]">
         <style>{`
           @keyframes tech-scroll-left {
             from { transform: translateX(0); }
@@ -766,12 +762,7 @@ export default function AISolutions() {
 
 
       {/* ── 9. FINAL CTA SECTION ── */}
-      <section 
-        className="relative py-24 md:py-32 border-t border-white/5 text-center overflow-hidden bg-cover bg-center bg-no-repeat bg-fixed"
-        style={{ backgroundImage: "url('/careers_bg.png')" }}
-      >
-        {/* Dark overlay */}
-        <div className="absolute inset-0 bg-[#050816]/95 pointer-events-none z-0" />
+      <section className="relative bg-[#081F52] py-24 md:py-32 border-t border-white/5 text-center overflow-hidden">
         {/* Subtle background glow */}
         <div className="absolute inset-0 bg-gradient-to-b from-transparent to-[#0B2F78]/25 z-0" />
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-[#c68b59]/5 blur-[120px] pointer-events-none" />

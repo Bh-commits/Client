@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { 
   FaLaptopCode, FaRobot, FaBolt, FaMobileAlt, FaBullhorn, 
@@ -15,7 +15,16 @@ export default function Portfolio() {
     target: projectsScrollRef,
     offset: ["start start", "end end"]
   });
-  const projectTrackX = useTransform(scrollYProgress, [0, 1], ["0%", "-62%"]);
+
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 1024);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  const projectTrackX = useTransform(scrollYProgress, [0, 1], ["0%", isMobile ? "0%" : "-62%"]);
 
   const projects = [
     {
@@ -95,10 +104,10 @@ export default function Portfolio() {
       />
 
       {/* ── 2. FEATURED PROJECTS SCROLL SECTION ── */}
-      <section ref={projectsScrollRef} className="relative h-[320vh] bg-cover bg-center bg-no-repeat bg-fixed border-b border-[rgba(198,139,89,0.12)]" style={{ backgroundImage: "url('/careers_bg.png')" }}>
+      <section ref={projectsScrollRef} className="relative h-auto md:h-[320vh] bg-cover bg-center bg-no-repeat bg-fixed border-b border-[rgba(198,139,89,0.12)]" style={{ backgroundImage: "url('/careers_bg.png')" }}>
         <div className="absolute inset-0 bg-white/60 backdrop-blur-[2px] pointer-events-none z-0"></div>
-        <div className="z-10 relative sticky top-0 flex h-screen items-center overflow-hidden py-20">
-          <div className="container-page w-full">
+        <div className="z-10 relative md:sticky md:top-0 flex h-auto md:h-screen items-center md:overflow-hidden py-16 md:py-20">
+          <div className="container-page w-full overflow-x-auto hide-scrollbar">
 
             {/* Section header row */}
             <motion.div
@@ -118,7 +127,7 @@ export default function Portfolio() {
 
             <motion.div
               style={{ x: projectTrackX }}
-              className="flex w-max gap-6"
+              className="flex w-max gap-6 pb-6 md:pb-0 px-4 md:px-0"
             >
               {projects.map((proj) => {
                 const Icon = proj.icon;
@@ -132,7 +141,7 @@ export default function Portfolio() {
                     {/* Top accent line */}
                     <div className="absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-[#c68b59]/0 via-[#c68b59] to-[#c68b59]/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
-                    <div className="p-8 flex flex-col flex-1">
+                    <div className="p-6 md:p-8 flex flex-col flex-1">
                       {/* Large ghost number + category inline */}
                       <div className="flex items-start justify-between mb-6">
                         <span className="font-serif text-[5rem] leading-none font-bold text-navy/[0.04] select-none group-hover:text-[#c68b59]/10 transition-colors duration-500">
@@ -162,7 +171,7 @@ export default function Portfolio() {
                     </div>
 
                     {/* Bottom row */}
-                    <div className="px-8 pb-8 flex items-center justify-between">
+                    <div className="px-6 md:px-8 pb-6 md:pb-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 sm:gap-0">
                       <span className="inline-flex items-center rounded-full bg-navy/[0.04] px-3 py-1.5 text-[10px] font-semibold font-ui uppercase tracking-widest text-navy/50 border border-navy/[0.06]">
                         {proj.metric}
                       </span>

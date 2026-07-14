@@ -45,7 +45,7 @@ function StackedCard({ group, index, total }) {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: '-100px' }}
         transition={{ duration: 0.6 }}
-        className="w-full h-[650px] md:h-[480px] rounded-[2rem] bg-[#0B1E3D]/95 backdrop-blur-xl border border-white/10 shadow-[0_-10px_40px_rgba(0,0,0,0.5)] overflow-hidden origin-top flex flex-col"
+        className="w-full h-auto min-h-[650px] md:h-[480px] md:min-h-0 rounded-[2rem] bg-[#0B1E3D]/95 backdrop-blur-xl border border-white/10 shadow-[0_-10px_40px_rgba(0,0,0,0.5)] overflow-hidden origin-top flex flex-col"
       >
         {/* Subtle top border glow */}
         <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-blue-500/50 to-transparent opacity-50" />

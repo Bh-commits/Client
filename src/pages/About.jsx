@@ -16,9 +16,8 @@ export default function About() {
       />
       
       {/* ── Our Belief Banner (Minimalist) ── */}
-      <section className="relative bg-cover bg-center bg-no-repeat bg-fixed pt-24 pb-20 border-b border-gray-200" style={{ backgroundImage: "url('/careers_bg.png')" }}>
-        <div className="absolute inset-0 bg-white/60 backdrop-blur-[2px] pointer-events-none z-0"></div>
-        <div className="z-10 relative container-page text-center">
+      <section className="bg-white pt-24 pb-20 border-b border-gray-200">
+        <div className="container-page text-center">
           <AnimatedSection>
             <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#c68b59] mb-6">Our Belief</p>
             <h2 className="font-serif text-4xl md:text-6xl text-ink leading-tight max-w-4xl mx-auto">
@@ -33,9 +32,8 @@ export default function About() {
       </section>
 
       {/* ── How IdeaClap India Private Limited Works: Minimalist Timeline ── */}
-      <section className="relative bg-cover bg-center bg-no-repeat bg-fixed py-20 md:py-32 overflow-hidden" style={{ backgroundImage: "url('/careers_bg.png')" }}>
-        <div className="absolute inset-0 bg-white/60 backdrop-blur-[2px] pointer-events-none z-0"></div>
-        <div className="container-page relative z-10">
+      <section className="bg-white py-20 md:py-32 overflow-hidden">
+        <div className="container-page">
           
           <AnimatedSection>
             <div className="mb-24 text-center max-w-3xl mx-auto">
@@ -57,7 +55,7 @@ export default function About() {
               const stepNumber = String(index + 1).padStart(2, '0');
 
               return (
-                <div key={step.title} className={`relative z-10 flex flex-col md:flex-row items-center gap-8 md:gap-0 mb-20 md:mb-32 last:mb-0`}>
+                <div key={step.title} className={`relative z-10 flex ${isEven ? 'flex-col' : 'flex-col-reverse'} md:flex-row items-center gap-8 md:gap-0 mb-20 md:mb-32 last:mb-0`}>
                   
                   {/* Center Node (Hollow Circle) */}
                   <div className="absolute left-[24px] md:left-1/2 top-1/2 -translate-y-1/2 -translate-x-1/2 hidden sm:flex h-3 w-3 rounded-full border-2 border-[#c68b59] bg-white z-20"></div>
@@ -109,9 +107,8 @@ export default function About() {
         </div>
       </section>
 
-      <section className="relative bg-cover bg-center bg-no-repeat bg-fixed py-20 md:py-28 border-t border-[rgba(198,139,89,0.15)]" style={{ backgroundImage: "url('/careers_bg.png')" }}>
-        <div className="absolute inset-0 bg-white/60 backdrop-blur-[2px] pointer-events-none z-0"></div>
-        <div className="z-10 relative container-page text-center">
+      <section className="bg-white py-20 md:py-28 border-t border-[rgba(198,139,89,0.15)]">
+        <div className="container-page text-center">
           <AnimatedSection>
             <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#c68b59] mb-6">What We Optimize</p>
             <h2 className="font-serif text-3xl md:text-5xl text-ink leading-tight max-w-4xl mx-auto">
