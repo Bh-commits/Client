@@ -24,7 +24,11 @@ export function Testimonials() {
   }, []);
 
   return (
-    <section className="relative overflow-hidden bg-[#030A14] py-24 lg:py-32">
+    <section 
+      className="relative overflow-hidden bg-cover bg-center bg-no-repeat bg-fixed py-24 lg:py-32 border-b border-[rgba(198,139,89,0.12)]"
+      style={{ backgroundImage: "url('/careers_bg.png')" }}
+    >
+      <div className="absolute inset-0 bg-[#0B1120]/90" />
       {/* Background Deep Glows */}
       <div className="pointer-events-none absolute left-0 top-0 h-[500px] w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-blue-600/10 blur-[120px]" />
       <div className="pointer-events-none absolute right-0 bottom-0 h-[400px] w-[400px] translate-x-1/3 translate-y-1/3 rounded-full bg-accent/5 blur-[100px]" />

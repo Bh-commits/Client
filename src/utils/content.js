@@ -27,10 +27,16 @@ export const siteConfig = {
   domain: 'https://ideaclapindia.com',
   description:
     'Premium website development, AI solutions, digital marketing, mobile apps, and business automation services for growth-focused businesses.',
-  phone: '+91 9755355367',
+  phone: '+91 70672 44561',
   email: 'operations@ideaclapindia.com',
-  address: 'India',
-  whatsappNumber: import.meta.env.VITE_WHATSAPP_NUMBER || '919755355367'
+  address: 'Indore, Madhya Pradesh, India',
+  whatsappNumber: import.meta.env.VITE_WHATSAPP_NUMBER || '917067244561',
+  socials: {
+    facebook: 'https://www.facebook.com/profile.php?id=61591509852916',
+    instagram: 'https://www.instagram.com/ideaclapindia/',
+    linkedin: 'https://www.linkedin.com/company/ideaclapindia/',
+    twitter: 'https://x.com/IdeaClapIndia'
+  }
 };
 
 export const navLinks = [

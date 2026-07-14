@@ -1,6 +1,6 @@
 import { motion, useMotionValue, useSpring, useTransform, AnimatePresence } from 'framer-motion';
 import { useMemo, useEffect, useState } from 'react';
-import { FaCheckCircle, FaRocket, FaBolt, FaRobot, FaShieldAlt, FaVolumeMute, FaVolumeUp } from 'react-icons/fa';
+import { FaCheckCircle, FaRocket, FaBolt, FaRobot, FaShieldAlt } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 
 /* ─────────────────────────────────────────
@@ -144,9 +144,9 @@ function ScatterLogo() {
   });
 
   return (
-    <div className="flex flex-col items-start justify-center select-none font-serif">
+    <div className="flex flex-col items-center justify-center select-none font-serif text-center relative z-10 w-full max-w-7xl mx-auto px-4 mt-[-10vh]">
       {/* LINE 1 — Eyebrow */}
-      <div className="flex flex-wrap items-center justify-start font-ui font-semibold uppercase tracking-[0.35em] text-white/95 mb-3 text-lg md:text-xl drop-shadow-md">
+      <div className="flex flex-wrap items-center justify-center font-ui font-semibold uppercase tracking-[0.35em] text-white/95 mb-4 text-xl md:text-2xl drop-shadow-md">
         {line1Chars.map((letter, i) => (
           <motion.span
             key={`l1-${i}`}
@@ -164,8 +164,8 @@ function ScatterLogo() {
 
       {/* LINE 2 — "IdeaClap" */}
       <h1
-        className="tracking-normal flex items-center justify-start overflow-visible whitespace-nowrap"
-        style={{ fontSize: 'clamp(3rem, 8.5vw, 8rem)', lineHeight: 1.05 }}
+        className="tracking-normal flex items-center justify-center overflow-visible whitespace-nowrap mt-2"
+        style={{ fontSize: 'clamp(5rem, 14vw, 13rem)', lineHeight: 1.1 }}
       >
         {line2Chars.map((letter, i) => {
           const globalIndex = line1Chars.length + i;
@@ -196,7 +196,7 @@ function ScatterLogo() {
 
       {/* Line 3 — Full company name */}
       <motion.div
-        className="mt-4 text-3xl md:text-4xl font-light tracking-wide text-white/95 font-serif"
+        className="mt-6 text-3xl md:text-5xl font-light tracking-wide text-white/95 font-serif"
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, delay: 4.7 }}
@@ -207,14 +207,14 @@ function ScatterLogo() {
 
       {/* Badge */}
       <motion.div
-        className="mt-7"
+        className="mt-10"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, delay: 4.9 }}
         animate-loop={{ y: [0, -6, 0] }}
       >
         <motion.span
-          className="inline-flex items-center gap-2.5 rounded-full border border-white/20 bg-white/8 px-5 py-2.5 text-xs md:text-sm font-semibold font-ui tracking-wide text-white backdrop-blur-md shadow-[0_4px_12px_rgba(0,0,0,0.2)]"
+          className="inline-flex items-center justify-center gap-3 rounded-full border border-white/20 bg-white/8 px-8 py-4 text-sm md:text-base font-semibold font-ui tracking-wide text-white backdrop-blur-md shadow-[0_4px_16px_rgba(0,0,0,0.3)]"
           style={{ background: 'rgba(255,255,255,0.06)' }}
           animate={{ y: [0, -6, 0] }}
           transition={{ duration: 3.5, repeat: Infinity, ease: 'easeInOut', delay: 5.5 }}
@@ -478,7 +478,6 @@ function AuroraBackground() {
    Main Hero Section
 ───────────────────────────────────────── */
 export function HeroSection() {
-  const [isMuted, setIsMuted] = useState(true);
 
   /* Mouse parallax */
   const mouseX = useMotionValue(0);
@@ -508,38 +507,96 @@ export function HeroSection() {
 
   return (
     <section
-      className="relative min-h-screen overflow-hidden flex items-center"
-      style={{ background: '#050816' }}
+      className="relative min-h-screen overflow-hidden flex items-center bg-cover bg-center bg-no-repeat bg-fixed"
+      style={{ backgroundImage: "url('/careers_bg.png')" }}
     >
-      {/* Immersive Full Screen Video Background */}
-      <div className="absolute inset-0 z-0 w-full h-full overflow-hidden">
-        <video
-          src="/home_hero_video.mp4"
-          autoPlay
-          muted={isMuted}
-          loop
-          playsInline
-          className="w-full h-full object-cover"
+      <div className="absolute inset-0 bg-[#0B1120]/90" />
+      
+      {/* Animated dark gradient mesh background */}
+      <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+        {/* Animated glow orb 1 */}
+        <motion.div
+          className="absolute rounded-full"
+          style={{ width: 700, height: 700, top: '-20%', left: '-15%', background: 'radial-gradient(circle, rgba(59,130,246,0.12) 0%, transparent 65%)', filter: 'blur(40px)' }}
+          animate={{ scale: [1, 1.15, 1], opacity: [0.6, 1, 0.6] }}
+          transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
         />
-        {/* Dark Vignette Overlay to maintain contrast for Navbar */}
-        <div className="absolute inset-0 bg-gradient-to-b from-[#050816]/50 via-transparent to-[#050816]" />
+        {/* Animated glow orb 2 */}
+        <motion.div
+          className="absolute rounded-full"
+          style={{ width: 600, height: 600, bottom: '-10%', right: '-10%', background: 'radial-gradient(circle, rgba(255,184,0,0.08) 0%, transparent 65%)', filter: 'blur(50px)' }}
+          animate={{ scale: [1, 1.2, 1], opacity: [0.5, 0.9, 0.5] }}
+          transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut', delay: 2 }}
+        />
+        {/* Subtle grid overlay */}
+        <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'linear-gradient(rgba(255,255,255,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.5) 1px, transparent 1px)', backgroundSize: '60px 60px' }} />
+        {/* Top fade for navbar contrast */}
+        <div className="absolute inset-0 bg-gradient-to-b from-[#0B1120]/80 via-transparent to-[#0B1120]/40" />
       </div>
 
-      {/* Floating Mute/Unmute Control overlay for immersive video */}
-      <div className="absolute bottom-8 right-8 z-30 flex items-center">
-        <button
-          onClick={() => setIsMuted(!isMuted)}
-          className="flex h-12 w-12 items-center justify-center rounded-full border border-white/20 bg-[#050816]/60 text-white backdrop-blur-md transition-all hover:scale-105 hover:bg-[#050816]/90 active:scale-95 shadow-xl"
-          aria-label={isMuted ? 'Unmute video' : 'Mute video'}
+      {/* Main Content matching Screenshot */}
+      <div className="relative z-10 w-full flex flex-col items-center justify-center h-full text-center px-4">
+        
+        {/* Eyebrow */}
+        <motion.div 
+          className="mb-6 tracking-[0.45em] text-[#c68b59] font-ui text-sm md:text-base lg:text-lg font-medium uppercase"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
         >
-          {isMuted ? <FaVolumeMute className="text-lg" /> : <FaVolumeUp className="text-lg" />}
-        </button>
+          INNOVATE WITH
+        </motion.div>
+
+        {/* Main Logo Text */}
+        <motion.h1 
+          className="font-serif font-bold leading-none tracking-tight flex items-center justify-center flex-wrap" 
+          style={{ fontSize: 'clamp(5rem, 13vw, 12rem)' }}
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1.2, type: "spring", stiffness: 45 }}
+        >
+          <span className="text-white drop-shadow-[0_4px_16px_rgba(255,255,255,0.15)]">Idea</span>
+          <span className="text-[#c68b59] drop-shadow-[0_4px_16px_rgba(198,139,89,0.3)]">Clap</span>
+        </motion.h1>
+
+        {/* Subtitle */}
+        <motion.div 
+          className="mt-6 text-2xl md:text-4xl lg:text-5xl text-white/95 font-serif font-light tracking-wide"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.5 }}
+        >
+          India <span className="italic text-[#c68b59]">Private Limited</span>
+        </motion.div>
+
+        {/* Ultra-Premium Animated Badge */}
+        <motion.div 
+          className="mt-14 group relative inline-flex items-center justify-center p-[1px] rounded-full overflow-hidden shadow-[0_8px_32px_rgba(0,0,0,0.4)] transition-all duration-500 hover:shadow-[0_0_40px_rgba(198,139,89,0.15)]"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.7 }}
+          whileHover={{ scale: 1.02, y: -2 }}
+        >
+          {/* Animated Gradient Border Layer */}
+          <span className="absolute inset-[-1000%] animate-[spin_4s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,transparent_0%,rgba(198,139,89,0.8)_33%,rgba(255,255,255,0.6)_66%,transparent_100%)] opacity-70 group-hover:opacity-100 transition-opacity duration-500" />
+          
+          {/* Inner Badge Content */}
+          <span className="relative flex h-full w-full items-center gap-3.5 rounded-full bg-[#050816]/95 px-5 py-3 md:px-7 md:py-4 backdrop-blur-2xl">
+            <span className="text-[#c68b59] transition-transform duration-500 group-hover:rotate-12 group-hover:scale-110">
+              <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 512 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M501.6 4.186c-7.594-5.156-17.41-5.594-25.44-1.26l-368 200c-7.719 4.188-12.28 12.69-11.75 21.44s5.969 16.53 14.16 19.34l93.19 32.19c11.03 3.812 23.34 2.125 32.88-4.469l207.6-143.1l-153.2 173.8c-7.906 8.938-10.72 21.62-7.531 33.31l33.88 124.2c2.719 9.969 11.22 17.06 21.5 17.75c.594.031 1.219.063 1.813.063c9.625 0 18.5-5.156 23.25-13.62l144-256C511.4 34.03 509.2 16.44 501.6 4.186zM88.76 295.3c-14.88-5.125-30.84 2.375-36.41 17.38L2.008 403.4c-5.813 15.69 2.125 33.31 17.81 39.12s33.31-2.125 39.13-17.81L109.3 334.1C115.1 318.4 107.2 300.8 88.76 295.3zM189.6 405.3l-19.19 72.31c-3.969 14.94 4.875 30.25 19.81 34.25c2.375.625 4.813.938 7.188.938c12.56 0 24.06-8.313 27.06-20.75l17.81-74.88L189.6 405.3z"></path></svg>
+            </span>
+            <span className="text-xs md:text-sm font-semibold uppercase tracking-[0.2em] text-white/95 font-ui">
+              Empowering Businesses Through AI & Innovation
+            </span>
+          </span>
+        </motion.div>
+
       </div>
 
       {/* Bottom fade */}
       <div
-        className="pointer-events-none absolute bottom-0 left-0 right-0 h-32"
-        style={{ background: 'linear-gradient(to bottom, transparent, rgba(5,8,22,1))' }}
+        className="pointer-events-none absolute bottom-0 left-0 right-0 h-40"
+        style={{ background: 'linear-gradient(to bottom, transparent, #0B1120)' }}
       />
     </section>
   );

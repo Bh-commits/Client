@@ -67,9 +67,10 @@ export function CompanyIntro() {
   if (isMobile) {
     return (
       <section
-        className="relative overflow-hidden py-16"
-        style={{ background: 'linear-gradient(180deg, #081F52 0%, #0B2F78 52%, #081F52 100%)' }}
+        className="relative overflow-hidden py-16 bg-cover bg-center bg-no-repeat bg-fixed border-b border-[rgba(198,139,89,0.12)]"
+        style={{ backgroundImage: "url('/careers_bg.png')" }}
       >
+        <div className="absolute inset-0 bg-[#0B1120]/90" />
         <div
           className="absolute inset-0 opacity-[0.03] pointer-events-none"
           style={{
@@ -81,7 +82,7 @@ export function CompanyIntro() {
         <div className="container-page relative z-10 flex flex-col gap-8">
           <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-[#061634]/80 shadow-[0_18px_50px_rgba(0,0,0,0.35)]">
             <video
-              src="/company_intro_video.mp4"
+              src="/assets/IdeaClap.mp4"
               autoPlay
               muted={isMuted}
               loop
@@ -158,10 +159,11 @@ export function CompanyIntro() {
 
   return (
     <section 
-      className="relative overflow-hidden py-20 md:py-32"
-      style={{ background: 'linear-gradient(to bottom, #081F52 0%, #0B2F78 50%, #081F52 100%)' }}
+      className="relative overflow-hidden py-20 md:py-32 bg-cover bg-center bg-no-repeat bg-fixed border-b border-[rgba(198,139,89,0.12)]"
+      style={{ backgroundImage: "url('/careers_bg.png')" }}
       onMouseMove={handleMouseMove}
     >
+      <div className="absolute inset-0 bg-[#0B1120]/90" />
       {/* Premium Dotted Grid Background */}
       <div
         className="absolute inset-0 opacity-[0.03] pointer-events-none"
@@ -205,7 +207,7 @@ export function CompanyIntro() {
             
             <div className="relative overflow-hidden rounded-[26px] bg-navy/80 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.7)] ring-1 ring-white/10 backdrop-blur-xl">
               <video
-                src="/company_intro_video.mp4"
+                src="/assets/IdeaClap.mp4"
                 autoPlay
                 muted={isMuted}
                 loop

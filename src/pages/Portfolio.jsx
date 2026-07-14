@@ -95,88 +95,88 @@ export default function Portfolio() {
       />
 
       {/* ── 2. FEATURED PROJECTS SCROLL SECTION ── */}
-      <section ref={projectsScrollRef} className="relative relative h-[320vh] bg-cover bg-center bg-no-repeat bg-fixed border-b border-[rgba(198,139,89,0.12)]" style={{ backgroundImage: "url('/careers_bg.png')" }}>
+      <section ref={projectsScrollRef} className="relative h-[320vh] bg-cover bg-center bg-no-repeat bg-fixed border-b border-[rgba(198,139,89,0.12)]" style={{ backgroundImage: "url('/careers_bg.png')" }}>
         <div className="absolute inset-0 bg-white/60 backdrop-blur-[2px] pointer-events-none z-0"></div>
         <div className="z-10 relative sticky top-0 flex h-screen items-center overflow-hidden py-20">
           <div className="container-page w-full">
 
-          {/* Section header row */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ type: "spring", stiffness: 100, damping: 15 }}
-            className="mb-12"
-          >
-            <span className="inline-flex items-center gap-2 rounded-full border border-[#c68b59]/30 bg-[#c68b59]/10 px-4 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-[#c68b59] mb-4">
-              Case Studies
-            </span>
-            <h2 className="font-serif text-3xl md:text-5xl text-navy leading-tight font-bold">
-              Featured <span className="italic text-[#c68b59]">Projects.</span>
-            </h2>
-          </motion.div>
+            {/* Section header row */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ type: "spring", stiffness: 100, damping: 15 }}
+              className="mb-12"
+            >
+              <span className="inline-flex items-center gap-2 rounded-full border border-[#c68b59]/30 bg-[#c68b59]/10 px-4 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-[#c68b59] mb-4">
+                Case Studies
+              </span>
+              <h2 className="font-serif text-3xl md:text-5xl text-navy leading-tight font-bold">
+                Featured <span className="italic text-[#c68b59]">Projects.</span>
+              </h2>
+            </motion.div>
 
-          <motion.div
-            style={{ x: projectTrackX }}
-            className="flex w-max gap-6"
-          >
+            <motion.div
+              style={{ x: projectTrackX }}
+              className="flex w-max gap-6"
+            >
               {projects.map((proj) => {
                 const Icon = proj.icon;
                 return (
-                    <motion.div
-                      key={proj.title}
-                      whileHover={{ y: -6 }}
-                      transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                      className="group relative flex min-h-[400px] w-[82vw] max-w-[420px] flex-shrink-0 flex-col justify-between rounded-3xl border border-[rgba(8,31,82,0.1)] bg-white/90 backdrop-blur-sm overflow-hidden shadow-[0_2px_24px_rgba(8,31,82,0.06)] hover:shadow-[0_12px_40px_rgba(8,31,82,0.14)] hover:border-[#c68b59]/40 transition-all duration-400 sm:w-[360px] lg:w-[420px]"
-                    >
-                      {/* Top accent line */}
-                      <div className="absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-[#c68b59]/0 via-[#c68b59] to-[#c68b59]/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  <motion.div
+                    key={proj.title}
+                    whileHover={{ y: -6 }}
+                    transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                    className="group relative flex min-h-[400px] w-[82vw] max-w-[420px] flex-shrink-0 flex-col justify-between rounded-3xl border border-[rgba(8,31,82,0.1)] bg-white/90 backdrop-blur-sm overflow-hidden shadow-[0_2px_24px_rgba(8,31,82,0.06)] hover:shadow-[0_12px_40px_rgba(8,31,82,0.14)] hover:border-[#c68b59]/40 transition-all duration-400 sm:w-[360px] lg:w-[420px]"
+                  >
+                    {/* Top accent line */}
+                    <div className="absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-[#c68b59]/0 via-[#c68b59] to-[#c68b59]/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
-                      <div className="p-8 flex flex-col flex-1">
-                        {/* Large ghost number + category inline */}
-                        <div className="flex items-start justify-between mb-6">
-                          <span className="font-serif text-[5rem] leading-none font-bold text-navy/[0.04] select-none group-hover:text-[#c68b59]/10 transition-colors duration-500">
-                            {proj.number}
-                          </span>
-                          {/* Floating icon */}
-                          <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#c68b59]/10 text-[#c68b59] text-xl flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
-                            <Icon />
-                          </div>
+                    <div className="p-8 flex flex-col flex-1">
+                      {/* Large ghost number + category inline */}
+                      <div className="flex items-start justify-between mb-6">
+                        <span className="font-serif text-[5rem] leading-none font-bold text-navy/[0.04] select-none group-hover:text-[#c68b59]/10 transition-colors duration-500">
+                          {proj.number}
+                        </span>
+                        {/* Floating icon */}
+                        <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#c68b59]/10 text-[#c68b59] text-xl flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
+                          <Icon />
                         </div>
-
-                        {/* Category + Title */}
-                        <span className="text-[10px] font-bold font-ui uppercase tracking-[0.2em] text-[#c68b59] mb-2">
-                          {proj.category}
-                        </span>
-                        <h3 className="font-serif text-2xl md:text-3xl font-semibold text-navy leading-tight mb-4">
-                          {proj.title}
-                        </h3>
-
-                        {/* Short blue accent underline */}
-                        <div className="w-8 h-[3px] rounded-full bg-[#081F52]/20 group-hover:w-16 group-hover:bg-[#c68b59] transition-all duration-500 mb-5" />
-
-                        {/* Description */}
-                        <p className="text-sm font-light font-ui leading-[1.85] text-navy/60 flex-1">
-                          {proj.desc}
-                        </p>
                       </div>
 
-                      {/* Bottom row */}
-                      <div className="px-8 pb-8 flex items-center justify-between">
-                        <span className="inline-flex items-center rounded-full bg-navy/[0.04] px-3 py-1.5 text-[10px] font-semibold font-ui uppercase tracking-widest text-navy/50 border border-navy/[0.06]">
-                          {proj.metric}
-                        </span>
-                        <a
-                          href="/free-consultation"
-                          className="text-xs font-semibold font-ui tracking-widest uppercase text-[#c68b59]"
-                        >
-                          View Project
-                        </a>
-                      </div>
-                    </motion.div>
+                      {/* Category + Title */}
+                      <span className="text-[10px] font-bold font-ui uppercase tracking-[0.2em] text-[#c68b59] mb-2">
+                        {proj.category}
+                      </span>
+                      <h3 className="font-serif text-2xl md:text-3xl font-semibold text-navy leading-tight mb-4">
+                        {proj.title}
+                      </h3>
+
+                      {/* Short blue accent underline */}
+                      <div className="w-8 h-[3px] rounded-full bg-[#081F52]/20 group-hover:w-16 group-hover:bg-[#c68b59] transition-all duration-500 mb-5" />
+
+                      {/* Description */}
+                      <p className="text-sm font-light font-ui leading-[1.85] text-navy/60 flex-1">
+                        {proj.desc}
+                      </p>
+                    </div>
+
+                    {/* Bottom row */}
+                    <div className="px-8 pb-8 flex items-center justify-between">
+                      <span className="inline-flex items-center rounded-full bg-navy/[0.04] px-3 py-1.5 text-[10px] font-semibold font-ui uppercase tracking-widest text-navy/50 border border-navy/[0.06]">
+                        {proj.metric}
+                      </span>
+                      <a
+                        href="/contact"
+                        className="text-xs font-semibold font-ui tracking-widest uppercase text-[#c68b59] hover:text-[#c68b59]/70 transition-colors"
+                      >
+                        Get Similar Project →
+                      </a>
+                    </div>
+                  </motion.div>
                 );
               })}
-          </motion.div>
+            </motion.div>
           </div>
         </div>
       </section>
@@ -231,7 +231,11 @@ export default function Portfolio() {
       </section>
 
       {/* ── 4. FINAL CTA SECTION ── */}
-      <section className="relative bg-[#081F52] py-24 md:py-32 text-center overflow-hidden">
+      <section 
+        className="relative py-24 md:py-32 text-center overflow-hidden bg-cover bg-center bg-no-repeat bg-fixed"
+        style={{ backgroundImage: "url('/careers_bg.png')" }}
+      >
+        <div className="absolute inset-0 bg-[#050816]/95 pointer-events-none z-0" />
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-[#c68b59]/5 blur-[120px] pointer-events-none z-0" />
 
         <div className="container-page relative z-10 max-w-2xl">

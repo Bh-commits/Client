@@ -130,12 +130,12 @@ export function IntroSplash() {
             className="relative z-10 flex flex-col items-center justify-center"
           >
             {/* Logo circle */}
-            <div className="relative flex h-40 w-40 items-center justify-center rounded-full bg-gradient-to-br from-[#0A2E73] to-[#081F52] p-2 shadow-[0_0_60px_rgba(198,139,89,0.3)] ring-1 ring-white/10">
+            <div className="relative flex h-56 w-56 items-center justify-center rounded-full bg-gradient-to-br from-[#0A2E73] to-[#081F52] shadow-[0_0_60px_rgba(198,139,89,0.3)] ring-1 ring-white/10">
               <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-accent/20 to-transparent blur-md" />
               <img
                 src="/logo-new.png"
                 alt="IdeaClap Logo"
-                className="relative z-10 w-32 object-contain drop-shadow-2xl"
+                className="relative z-10 w-full h-full object-cover rounded-full drop-shadow-2xl"
               />
             </div>
 

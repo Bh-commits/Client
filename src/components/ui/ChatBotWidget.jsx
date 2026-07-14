@@ -86,7 +86,7 @@ export function ChatBotWidget() {
       return "Our pricing is highly tailored to the scope and complexity of your project. Please click the 'Free Consultation' button at the top to discuss your needs and get a custom quote!";
     }
     if (text.includes('contact') || text.includes('phone') || text.includes('email') || text.includes('reach')) {
-      return "You can email us at operations@ideaclapindia.com or call/WhatsApp us at +91 9755355367. You can also visit our Contact page to send us a direct message!";
+      return "You can email us at operations@ideaclapindia.com or call/WhatsApp us at +91 70672 44561. You can also visit our Contact page to send us a direct message!";
     }
     if (text.includes('career') || text.includes('job') || text.includes('intern') || text.includes('hiring')) {
       return "We're always looking for creative brains to join us! Head over to our Careers page to see open internship and full-time roles in Tech, Sales, HR, and Research.";

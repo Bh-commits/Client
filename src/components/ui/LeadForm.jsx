@@ -40,21 +40,21 @@ export function LeadForm({ type = 'contact', title = 'Send us your requirement',
       <div className={`mt-5 grid gap-4 ${compact ? '' : 'sm:grid-cols-2'}`}>
         <Field label="Name" error={errors.name?.message}>
           <input
-            className="focus-ring w-full rounded-lg border border-slate-200 px-4 py-3"
+            className="focus-ring w-full rounded-lg border border-slate-200 bg-white text-ink px-4 py-3"
             {...register('name', { required: 'Name is required' })}
             placeholder="Your name"
           />
         </Field>
         <Field label="Phone" error={errors.phone?.message}>
           <input
-            className="focus-ring w-full rounded-lg border border-slate-200 px-4 py-3"
+            className="focus-ring w-full rounded-lg border border-slate-200 bg-white text-ink px-4 py-3"
             {...register('phone', { required: 'Phone is required' })}
             placeholder="+91"
           />
         </Field>
         <Field label="Email" error={errors.email?.message}>
           <input
-            className="focus-ring w-full rounded-lg border border-slate-200 px-4 py-3"
+            className="focus-ring w-full rounded-lg border border-slate-200 bg-white text-ink px-4 py-3"
             type="email"
             {...register('email', { required: 'Email is required' })}
             placeholder="you@company.com"
@@ -62,14 +62,14 @@ export function LeadForm({ type = 'contact', title = 'Send us your requirement',
         </Field>
         <Field label="Company" error={errors.company?.message}>
           <input
-            className="focus-ring w-full rounded-lg border border-slate-200 px-4 py-3"
+            className="focus-ring w-full rounded-lg border border-slate-200 bg-white text-ink px-4 py-3"
             {...register('company')}
             placeholder="Company name"
           />
         </Field>
         <Field label="Business Type" error={errors.businessType?.message}>
           <select
-            className="focus-ring w-full rounded-xl border border-slate-200 px-4 py-3 text-ink bg-white"
+            className="focus-ring w-full rounded-xl border border-slate-200 bg-white text-ink px-4 py-3"
             {...register('businessType', { required: 'Business type is required' })}
             defaultValue=""
           >
@@ -85,7 +85,7 @@ export function LeadForm({ type = 'contact', title = 'Send us your requirement',
         </Field>
         <Field className={compact ? '' : 'sm:col-span-2'} label="Message" error={errors.message?.message}>
           <textarea
-            className="focus-ring min-h-32 w-full rounded-lg border border-slate-200 px-4 py-3"
+            className="focus-ring min-h-32 w-full rounded-lg border border-slate-200 bg-white text-ink px-4 py-3"
             {...register('message', { required: 'Message is required' })}
             placeholder="Tell us what you want to build or improve"
           />

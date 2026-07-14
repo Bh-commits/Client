@@ -74,14 +74,14 @@ function TiltCard({ service, index, isEven, isMobile, isHorizontal }) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={isMobile ? { once: true, amount: 0.05 } : { margin: '-80px', once: true }}
       transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: index * 0.08 }}
-      className={isHorizontal ? "w-full text-left" : `w-full md:w-1/2 pl-16 md:pl-0 ${isEven ? 'md:pr-16 order-1 text-left' : 'md:pl-16 order-2 text-left'}`}
+      className={isHorizontal ? "w-full text-left h-full flex flex-col" : `w-full md:w-1/2 pl-16 md:pl-0 ${isEven ? 'md:pr-16 order-1 text-left' : 'md:pl-16 order-2 text-left'}`}
       style={{ perspective: '1200px' }}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
     >
       <motion.div
         style={{ rotateX: isMobile ? 0 : rotateX, rotateY: isMobile ? 0 : rotateY, transformStyle: 'preserve-3d' }}
-        className="relative overflow-hidden rounded-2xl border border-white/8 bg-[#0B1120]/90 backdrop-blur-md p-8 shadow-xl transition-shadow duration-500 hover:shadow-[0_30px_60px_rgba(0,0,0,0.5)]"
+        className="relative flex flex-col overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.03] backdrop-blur-xl p-8 lg:p-10 shadow-lg transition-all duration-500 hover:border-[#c68b59]/40 hover:bg-white/[0.05] hover:shadow-[0_20px_60px_rgba(198,139,89,0.15)] h-full"
       >
         {/* Animated gradient spotlight on mouse position */}
         <motion.div
@@ -107,10 +107,10 @@ function TiltCard({ service, index, isEven, isMobile, isHorizontal }) {
         {/* Shimmer line sweep on hover */}
         <div className="card-shimmer-line absolute inset-0 rounded-2xl pointer-events-none" />
 
-        <div className="relative z-10">
+        <div className="relative z-10 flex flex-col h-full">
           {/* ID Number watermark */}
-          <span className="absolute -top-4 -right-2 text-6xl font-black select-none transition-colors duration-500"
-            style={{ color: `${c}0.06)` }}>
+          <span className="absolute -top-6 -right-2 text-[6rem] font-serif font-black italic select-none transition-colors duration-500 opacity-20"
+            style={{ color: `${c}0.2)` }}>
             {service.id}
           </span>
 
@@ -128,14 +128,14 @@ function TiltCard({ service, index, isEven, isMobile, isHorizontal }) {
             <Icon className="text-xl" style={{ color: `${c}0.9)` }} />
           </motion.div>
 
-          <h3 className="font-serif text-2xl text-white mb-4 transition-colors duration-300"
+          <h3 className="font-serif text-2xl lg:text-3xl leading-tight font-medium text-white mb-4 transition-colors duration-300"
             style={{ transitionProperty: 'color' }}
             onMouseEnter={(e) => { e.currentTarget.style.color = `${c}1)`; }}
             onMouseLeave={(e) => { e.currentTarget.style.color = '#ffffff'; }}>
             {service.title}
           </h3>
 
-          <p className="text-slate-300/75 text-base font-light leading-[1.85] tracking-wide mb-6">
+          <p className="text-slate-300/90 text-[1.05rem] font-light leading-[1.8] mb-8">
             {service.description}
           </p>
 
@@ -145,24 +145,25 @@ function TiltCard({ service, index, isEven, isMobile, isHorizontal }) {
               {service.highlights.map((highlight, i) => (
                 <motion.li
                   key={i}
-                  className="flex items-center gap-2 text-sm font-light text-slate-300/65"
+                  className="flex items-center gap-3 text-[0.9rem] font-normal text-slate-300/80"
                   initial={{ opacity: 0, x: -10 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: 0.1 + i * 0.05 }}
                 >
-                  <span className="h-1.5 w-1.5 rounded-full flex-shrink-0" style={{ background: `${c}0.8)` }} />
+                  <span className="h-2 w-2 rounded-full flex-shrink-0" style={{ background: `${c}1)` }} />
                   {highlight}
                 </motion.li>
               ))}
             </ul>
           </div>
 
-          <Link
-            to={service.link}
-            className="group/link inline-flex items-center gap-2 text-sm font-bold text-white/70 hover:text-white transition-colors duration-300"
-          >
-            Explore {service.title.split(' ')[0]}
+          <div className="mt-auto pt-6">
+            <Link
+              to={service.link}
+              className="group/link inline-flex items-center gap-2 text-[1rem] font-semibold text-white/80 hover:text-[#c68b59] transition-colors duration-300"
+            >
+              Explore {service.title.split(' ')[0]}
             <motion.span
               className="text-accent"
               animate={{ x: [0, 4, 0] }}
@@ -170,7 +171,8 @@ function TiltCard({ service, index, isEven, isMobile, isHorizontal }) {
             >
               <FaArrowRight />
             </motion.span>
-          </Link>
+            </Link>
+          </div>
         </div>
       </motion.div>
     </motion.div>
@@ -197,21 +199,12 @@ export function OurServices() {
     target: containerRef
   });
 
-  const xTranslation = useTransform(scrollYProgress, [0.1, 0.95], ["0%", "-62%"]);
+  const xTranslation = useTransform(scrollYProgress, [0.1, 0.95], ["0%", "-52%"]);
 
   if (isMobile) {
     return (
-      <section className="relative overflow-hidden py-24" style={{ background: '#0B1120' }}>
-        {/* Background image */}
-        <div
-          className="absolute inset-0 z-0 opacity-40"
-          style={{
-            backgroundImage: 'url(/hero_bg_blur.png)',
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-          }}
-        />
-        <div className="absolute inset-0 z-0 bg-[#0B1120]/70" />
+      <section className="relative overflow-hidden py-24 bg-cover bg-center bg-no-repeat bg-fixed border-b border-[rgba(198,139,89,0.12)]" style={{ backgroundImage: "url('/careers_bg.png')" }}>
+        <div className="absolute inset-0 bg-[#0B1120]/85 backdrop-blur-[1px] pointer-events-none z-0" />
         <div className="absolute inset-0 z-0 opacity-[0.02] pointer-events-none" style={{ backgroundImage: 'radial-gradient(circle, #fff 10%, transparent 11%)', backgroundSize: '28px 28px' }} />
 
         <div className="container-page relative z-10">
@@ -245,14 +238,14 @@ export function OurServices() {
   return (
     <section 
       ref={containerRef}
-      className="relative h-[300vh] bg-[#0B1120]"
+      className="relative h-[300vh] bg-cover bg-center bg-no-repeat bg-fixed border-b border-[rgba(198,139,89,0.12)]"
+      style={{ backgroundImage: "url('/careers_bg.png')" }}
     >
       {/* Sticky Screen Viewport */}
       <div className="sticky top-0 flex h-screen items-center overflow-hidden z-10">
         
         {/* Background Visual Layers */}
-        <div className="absolute inset-0 z-0 opacity-40" style={{ backgroundImage: 'url(/hero_bg_blur.png)', backgroundSize: 'cover', backgroundPosition: 'center' }} />
-        <div className="absolute inset-0 z-0 bg-[#0B1120]/75" />
+        <div className="absolute inset-0 bg-[#0B1120]/85 backdrop-blur-[1px] pointer-events-none z-0" />
         <div className="absolute inset-0 z-0 opacity-[0.02] pointer-events-none" style={{ backgroundImage: 'radial-gradient(circle, #fff 10%, transparent 11%)', backgroundSize: '28px 28px' }} />
 
         {/* Ambient Glowing Orbs */}
@@ -272,7 +265,7 @@ export function OurServices() {
         {/* Horizontal Container sliding horizontally */}
         <motion.div 
           style={{ x: xTranslation }} 
-          className="relative z-10 flex gap-12 items-center pl-[12vw] pr-[20vw] w-max"
+          className="relative z-10 flex gap-12 items-stretch pl-[12vw] pr-[12vw] w-max"
         >
           {/* Column 1: Sticky Title Card */}
           <div className="flex flex-col justify-center min-w-[420px] max-w-[460px] mr-8">
@@ -301,7 +294,7 @@ export function OurServices() {
 
           {/* Columns 2-5: Dynamic Tilt Cards */}
           {services.map((service, index) => (
-            <div key={service.id} className="min-w-[420px] md:min-w-[460px] lg:min-w-[480px]">
+            <div key={service.id} className="min-w-[420px] md:min-w-[460px] lg:min-w-[480px] h-full flex flex-col">
               <TiltCard service={service} index={index} isEven={index % 2 === 0} isMobile={false} isHorizontal={true} />
             </div>
           ))}

@@ -55,6 +55,15 @@ body {
   background: #c68b59;
 }
 
+/* Hide scrollbars for specific containers while keeping functionality */
+.hide-scrollbar {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
 button,
 input,
 textarea,

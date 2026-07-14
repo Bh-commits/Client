@@ -71,8 +71,7 @@ function StackedCard({ group, index, total }) {
               <h3 className="text-xs font-light uppercase tracking-[0.22em] text-[#c68b59] mb-4 shrink-0">
                 Included Services
               </h3>
-              <div className="overflow-y-auto custom-scrollbar pr-2 -mr-2">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-4 gap-x-6 pb-2">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-4 gap-x-6 pb-2">
                   {group.items.map((item, i) => (
                     <motion.div 
                       key={item} 
@@ -91,7 +90,6 @@ function StackedCard({ group, index, total }) {
                     </motion.div>
                   ))}
                 </div>
-              </div>
             </div>
           </div>
 
@@ -118,7 +116,12 @@ export default function Services() {
       />
 
       {/* ── Sticky Stacked Cards Section ── */}
-      <section className="relative bg-[#081F52] pt-12 pb-48 px-4 sm:px-6">
+      <section 
+        className="relative bg-cover bg-center bg-no-repeat bg-fixed pt-12 pb-48 px-4 sm:px-6 border-b border-[rgba(198,139,89,0.12)]"
+        style={{ backgroundImage: "url('/careers_bg.png')" }}
+      >
+        {/* Dark overlay */}
+        <div className="absolute inset-0 bg-[#0B1120]/90 pointer-events-none z-0" />
         
         {/* Subtle background glows for the cards section, wrapped to prevent horizontal scroll */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -142,7 +145,12 @@ export default function Services() {
 
       {/* ── Delivery / CTA Section ── */}
       {/* Added z-50 here so this section slides OVER the last sticky card, completing the stack effect */}
-      <section className="relative z-50 bg-navy py-24 overflow-hidden border-t border-white/5 shadow-[0_-20px_50px_rgba(0,0,0,0.5)]">
+      <section 
+        className="relative z-50 py-24 overflow-hidden border-t border-white/5 shadow-[0_-20px_50px_rgba(0,0,0,0.5)] bg-cover bg-center bg-no-repeat bg-fixed"
+        style={{ backgroundImage: "url('/careers_bg.png')" }}
+      >
+        {/* Dark overlay */}
+        <div className="absolute inset-0 bg-[#050816]/95 pointer-events-none z-0" />
         <div className="absolute inset-0 z-0 opacity-[0.025]" style={{ backgroundImage: 'radial-gradient(circle, #fff 10%, transparent 11%)', backgroundSize: '28px 28px' }} />
         <div className="container-page relative z-10 text-center">
           <div className="mx-auto max-w-3xl">

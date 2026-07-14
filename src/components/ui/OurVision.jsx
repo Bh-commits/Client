@@ -252,16 +252,21 @@ export function OurVision() {
       */}
       {/* Left Door */}
       <motion.div
-        className="absolute left-0 top-0 z-50 hidden h-full w-1/2 items-center justify-end overflow-hidden border-r border-accent/20 bg-[#0B2F78] shadow-[20px_0_50px_rgba(0,0,0,0.5)] backdrop-blur-xl md:flex"
+        className="absolute left-0 top-0 z-50 hidden h-full w-1/2 items-center justify-end overflow-hidden border-r border-[#c68b59]/30 bg-[#050816] shadow-[30px_0_60px_rgba(0,0,0,0.8)] md:flex"
         initial={{ x: 0 }}
         animate={opened ? { x: "-100%" } : { x: 0 }}
-        transition={{ duration: 1.2, ease: [0.77, 0, 0.175, 1], delay: 0.2 }}
+        transition={{ duration: 1.4, ease: [0.77, 0, 0.175, 1], delay: 0.2 }}
       >
         {/* Glow effect on the edge */}
-        <div className="absolute right-0 top-0 h-full w-1 bg-gradient-to-b from-transparent via-accent to-transparent opacity-50" />
+        <div className="absolute right-0 top-0 h-full w-[2px] bg-gradient-to-b from-transparent via-[#c68b59] to-transparent opacity-80 shadow-[0_0_15px_rgba(198,139,89,0.8)]" />
+        
+        {/* Half center circle (lock) */}
+        <div className="absolute right-[-24px] top-1/2 h-12 w-12 -translate-y-1/2 rounded-full border-l-2 border-t-2 border-b-2 border-[#c68b59] bg-[#050816] shadow-[0_0_20px_rgba(198,139,89,0.5)] z-20 flex items-center justify-start overflow-hidden">
+             <div className="w-full h-[1px] bg-[#c68b59]/50 absolute top-1/2" />
+        </div>
         
         <h3 
-          className="mr-4 font-heading font-black text-white/5 md:mr-8 lg:mr-12"
+          className="mr-4 font-serif italic text-white/5 md:mr-8 lg:mr-12"
           style={{ fontSize: 'clamp(4rem, 12vw, 15rem)' }}
         >
           OUR
@@ -270,16 +275,21 @@ export function OurVision() {
 
       {/* Right Door */}
       <motion.div
-        className="absolute right-0 top-0 z-50 hidden h-full w-1/2 items-center justify-start overflow-hidden border-l border-accent/20 bg-[#0B2F78] shadow-[-20px_0_50px_rgba(0,0,0,0.5)] backdrop-blur-xl md:flex"
+        className="absolute right-0 top-0 z-50 hidden h-full w-1/2 items-center justify-start overflow-hidden border-l border-[#c68b59]/30 bg-[#050816] shadow-[-30px_0_60px_rgba(0,0,0,0.8)] md:flex"
         initial={{ x: 0 }}
         animate={opened ? { x: "100%" } : { x: 0 }}
-        transition={{ duration: 1.2, ease: [0.77, 0, 0.175, 1], delay: 0.2 }}
+        transition={{ duration: 1.4, ease: [0.77, 0, 0.175, 1], delay: 0.2 }}
       >
         {/* Glow effect on the edge */}
-        <div className="absolute left-0 top-0 h-full w-1 bg-gradient-to-b from-transparent via-accent to-transparent opacity-50" />
+        <div className="absolute left-0 top-0 h-full w-[2px] bg-gradient-to-b from-transparent via-[#c68b59] to-transparent opacity-80 shadow-[0_0_15px_rgba(198,139,89,0.8)]" />
+        
+        {/* Half center circle (lock) */}
+        <div className="absolute left-[-24px] top-1/2 h-12 w-12 -translate-y-1/2 rounded-full border-r-2 border-t-2 border-b-2 border-[#c68b59] bg-[#050816] shadow-[0_0_20px_rgba(198,139,89,0.5)] z-20 flex items-center justify-end overflow-hidden">
+             <div className="w-full h-[1px] bg-[#c68b59]/50 absolute top-1/2" />
+        </div>
         
         <h3 
-          className="ml-4 font-heading font-black text-white/5 md:ml-8 lg:ml-12"
+          className="ml-4 font-serif italic text-white/5 md:ml-8 lg:ml-12"
           style={{ fontSize: 'clamp(4rem, 12vw, 15rem)' }}
         >
           VISION

@@ -32,7 +32,7 @@ const colVariants = {
 
 export function Footer() {
   return (
-    <footer className="relative overflow-hidden" style={{ background: '#050816' }}>
+    <footer className="relative overflow-hidden" style={{ background: '#03060f' }}>
       {/* Animated gradient wave at top */}
       <div className="relative h-[2px] overflow-hidden">
         <motion.div
@@ -46,16 +46,18 @@ export function Footer() {
         />
       </div>
 
-      {/* Background */}
+      {/* Background image */}
       <div
-        className="absolute inset-0 z-0 opacity-30"
+        className="absolute inset-0 z-0"
         style={{
-          backgroundImage: 'url(/hero_bg_blur.png)',
+          backgroundImage: 'url(/assets/footer_bg.png)',
           backgroundSize: 'cover',
           backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
         }}
       />
-      <div className="absolute inset-0 z-0 bg-[#050816]/80" />
+      {/* Dark overlay for text readability */}
+      <div className="absolute inset-0 z-0" style={{ background: 'rgba(3,6,15,0.40)' }} />
 
       {/* Grid dots */}
       <div
@@ -82,7 +84,7 @@ export function Footer() {
 
       {/* Main Grid */}
       <motion.div
-        className="container-page relative z-10 grid gap-10 py-16 lg:grid-cols-[1.1fr_0.7fr_1.5fr_1.1fr]"
+        className="container-page relative z-10 grid gap-x-12 gap-y-12 py-20 md:grid-cols-2 lg:grid-cols-[1.2fr_0.8fr_2.2fr_1.4fr]"
         variants={containerVariants}
         initial="hidden"
         whileInView="visible"
@@ -100,16 +102,16 @@ export function Footer() {
               transition={{ type: 'spring', stiffness: 300, damping: 20 }}
             />
           </Link>
-          <p className="mt-5 max-w-sm text-sm leading-7" style={{ color: 'rgba(240,246,255,0.55)' }}>
+          <p className="mt-6 max-w-sm text-sm leading-7" style={{ color: 'rgba(240,246,255,0.55)' }}>
             Empowering Businesses Through Smart Digital Solutions, AI Innovation & Business Automation.
           </p>
-          <div className="mt-5 grid gap-3 text-sm" style={{ color: 'rgba(240,246,255,0.65)' }}>
+          <div className="mt-8 grid gap-4 text-sm" style={{ color: 'rgba(240,246,255,0.65)' }}>
             <motion.a
               className="focus-ring flex items-center gap-3 rounded-lg transition-colors hover:text-accent group"
               href={`mailto:${siteConfig.email}`}
               whileHover={{ x: 5 }}
             >
-              <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-500/10 transition-colors group-hover:bg-blue-500/20">
+              <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-blue-500/10 transition-colors group-hover:bg-blue-500/20">
                 <FaEnvelope className="text-blue-400 text-xs" />
               </span>
               {siteConfig.email}
@@ -119,28 +121,49 @@ export function Footer() {
               href={`tel:${siteConfig.phone}`}
               whileHover={{ x: 5 }}
             >
-              <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-accent/10 transition-colors group-hover:bg-accent/20">
+              <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-accent/10 transition-colors group-hover:bg-accent/20">
                 <FaPhoneAlt className="text-accent text-xs" />
               </span>
               {siteConfig.phone}
             </motion.a>
             <span className="flex items-center gap-3">
-              <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-purple-500/10">
+              <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-purple-500/10">
                 <FaMapMarkerAlt className="text-purple-400 text-xs" />
               </span>
               {siteConfig.address}
             </span>
+          </div>
+          {/* Social Media Links */}
+          <div className="mt-8 flex items-center gap-3.5">
+            {[
+              { href: siteConfig.socials?.facebook, src: '/assets/facebook.png', alt: 'Facebook' },
+              { href: siteConfig.socials?.instagram, src: '/assets/instagram.webp', alt: 'Instagram' },
+              { href: siteConfig.socials?.linkedin, src: '/assets/png-transparent-linkedin-logo.png', alt: 'LinkedIn' },
+              { href: siteConfig.socials?.twitter, src: '/assets/twitter.webp', alt: 'Twitter/X' }
+            ].map((social) => (
+              <motion.a
+                key={social.alt}
+                className="focus-ring flex h-9 w-9 items-center justify-center rounded-lg border border-white/5 bg-white/5 transition-all hover:bg-white/10 hover:border-white/10"
+                href={social.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                whileHover={{ y: -3, scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <img src={social.src} alt={social.alt} className="h-5 w-5 object-contain" />
+              </motion.a>
+            ))}
           </div>
         </motion.div>
 
         {/* Company links */}
         <motion.div variants={colVariants}>
           <h2 className="font-heading text-xl font-bold" style={{ color: '#F0F6FF' }}>Company</h2>
-          <div className="mt-4 grid gap-3">
+          <div className="mt-6 grid gap-4">
             {navLinks.slice(0, 8).map((link) => (
               <motion.div key={link.href} whileHover={{ x: 5 }} transition={{ duration: 0.15 }}>
                 <Link
-                  className="focus-ring group rounded-lg text-sm transition-colors hover:text-white flex items-center gap-1"
+                  className="focus-ring group rounded-lg text-sm transition-colors hover:text-white flex items-center gap-2"
                   style={{ color: 'rgba(240,246,255,0.5)' }}
                   to={link.href}
                 >
@@ -158,11 +181,11 @@ export function Footer() {
         {/* Services links */}
         <motion.div variants={colVariants}>
           <h2 className="font-heading text-xl font-bold" style={{ color: '#F0F6FF' }}>Services</h2>
-          <div className="mt-4 grid grid-cols-2 gap-x-6 gap-y-3">
+          <div className="mt-6 grid grid-cols-2 gap-x-8 gap-y-4">
             {featuredServices.map((service) => (
               <motion.div key={service.title} whileHover={{ x: 5 }} transition={{ duration: 0.15 }}>
                 <Link
-                  className="focus-ring group rounded-lg text-sm transition-colors hover:text-white flex items-center gap-1"
+                  className="focus-ring group rounded-lg text-sm transition-colors hover:text-white flex items-center gap-2"
                   style={{ color: 'rgba(240,246,255,0.5)' }}
                   to={service.href}
                 >
@@ -180,10 +203,10 @@ export function Footer() {
         {/* Newsletter */}
         <motion.div variants={colVariants}>
           <h2 className="font-heading text-xl font-bold" style={{ color: '#F0F6FF' }}>Growth Notes</h2>
-          <p className="mt-4 text-sm leading-7" style={{ color: 'rgba(240,246,255,0.55)' }}>
+          <p className="mt-6 text-sm leading-7" style={{ color: 'rgba(240,246,255,0.55)' }}>
             Get practical ideas on websites, AI, and lead generation.
           </p>
-          <div className="mt-5">
+          <div className="mt-6">
             <NewsletterForm />
           </div>
         </motion.div>
@@ -200,9 +223,13 @@ export function Footer() {
           transition={{ duration: 0.5 }}
         >
           <p>© {new Date().getFullYear()} IdeaClap India. All rights reserved.</p>
-          <p className="text-xs" style={{ color: 'rgba(240,246,255,0.3)' }}>
-            Built with ❤️ for Business Growth
-          </p>
+          <div className="flex flex-wrap items-center gap-4 text-xs" style={{ color: 'rgba(240,246,255,0.4)' }}>
+            <Link className="hover:text-white transition-colors" to="/privacy-policy">Privacy Policy</Link>
+            <span style={{ color: 'rgba(240,246,255,0.15)' }}>|</span>
+            <Link className="hover:text-white transition-colors" to="/terms-and-conditions">Terms &amp; Conditions</Link>
+            <span style={{ color: 'rgba(240,246,255,0.15)' }}>|</span>
+            <span style={{ color: 'rgba(240,246,255,0.3)' }}>Built with ❤️ for Business Growth</span>
+          </div>
         </motion.div>
       </div>
     </footer>

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { FaEnvelope, FaPhoneAlt, FaMapMarkerAlt, FaWhatsapp, FaLinkedin, FaArrowRight, FaPaperPlane } from 'react-icons/fa';
+import { FaEnvelope, FaPhoneAlt, FaMapMarkerAlt, FaWhatsapp, FaLinkedin, FaFacebook, FaInstagram, FaTwitter, FaArrowRight, FaPaperPlane } from 'react-icons/fa';
 import { useForm } from 'react-hook-form';
 import { PageTransition } from '../components/ui/PageTransition';
 import { SEO } from '../components/ui/SEO';
@@ -86,7 +86,7 @@ export default function Contact() {
   const contactItems = [
     { icon: FaEnvelope, label: 'Email Us', value: siteConfig.email, href: `mailto:${siteConfig.email}` },
     { icon: FaPhoneAlt, label: 'Call Us', value: siteConfig.phone, href: `tel:${siteConfig.phone}` },
-    { icon: FaMapMarkerAlt, label: 'Location', value: 'Virtual PAN India', href: null },
+    { icon: FaMapMarkerAlt, label: 'Location', value: siteConfig.address, href: null },
   ];
 
   return (
@@ -179,7 +179,10 @@ export default function Contact() {
             <div className="relative z-10 mt-12 pt-8 border-t border-white/10 flex items-center gap-4">
               <span className="text-[10px] font-bold font-ui uppercase tracking-widest text-white/30">Follow us</span>
               {[
-                { icon: FaLinkedin, href: 'https://www.linkedin.com/company/ideaclap/', label: 'LinkedIn' },
+                { icon: FaFacebook, href: siteConfig.socials?.facebook, label: 'Facebook' },
+                { icon: FaInstagram, href: siteConfig.socials?.instagram, label: 'Instagram' },
+                { icon: FaLinkedin, href: siteConfig.socials?.linkedin, label: 'LinkedIn' },
+                { icon: FaTwitter, href: siteConfig.socials?.twitter, label: 'Twitter/X' },
               ].map(s => (
                 <a key={s.label} href={s.href} target="_blank" rel="noreferrer" aria-label={s.label}
                   className="flex h-9 w-9 items-center justify-center rounded-full border border-white/10 text-white/50 hover:text-white hover:border-white/30 transition-all duration-300">

@@ -67,7 +67,9 @@ export function WhyChoose() {
   }, []);
 
   return (
-    <section className="relative overflow-hidden bg-[#081F52] py-24 lg:py-32">
+    <section className="relative overflow-hidden bg-cover bg-center bg-no-repeat bg-fixed py-24 lg:py-32 border-b border-[rgba(198,139,89,0.12)]" style={{ backgroundImage: "url('/careers_bg.png')" }}>
+      {/* Dark overlay preserving navy theme */}
+      <div className="absolute inset-0 bg-[#081F52]/80 backdrop-blur-[1px] pointer-events-none z-0" />
       {/* Background Deep Glows */}
       <div className="pointer-events-none absolute left-1/2 top-1/2 h-[800px] w-[1000px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-blue-600/5 blur-[120px]" />
       

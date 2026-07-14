@@ -31,10 +31,10 @@ export function ToastProvider({ children }) {
           return (
             <div
               key={toast.id}
-              className="surface flex items-start gap-3 rounded-lg px-4 py-3 text-sm text-ink"
+              className="flex items-start gap-3 rounded-xl border border-white/10 bg-[#0B1120]/95 backdrop-blur-xl px-5 py-4 text-sm font-medium text-white shadow-2xl"
               role="status"
             >
-              <Icon className={toast.type === 'error' ? 'mt-0.5 text-red-500' : 'mt-0.5 text-royal'} />
+              <Icon className={toast.type === 'error' ? 'mt-0.5 text-red-400 shrink-0 text-base' : 'mt-0.5 text-green-400 shrink-0 text-base'} />
               <span>{toast.message}</span>
             </div>
           );

@@ -213,7 +213,8 @@ export default function Careers() {
       {/* ══════════════════════════════════════════
           1. HERO SECTION
       ══════════════════════════════════════════ */}
-      <section className="relative min-h-[92vh] flex items-center bg-[#081F52] overflow-hidden pt-24">
+      <section className="relative min-h-[92vh] flex items-center overflow-hidden pt-24 bg-cover bg-center bg-no-repeat bg-fixed" style={{ backgroundImage: "url('/careers_bg.png')" }}>
+        <div className="absolute inset-0 bg-[#050816]/95 pointer-events-none z-0" />
         <div className="absolute inset-0 opacity-10 z-0 pointer-events-none"
           style={{ backgroundImage: 'radial-gradient(circle, rgba(198,139,89,0.2) 10%, transparent 11%)', backgroundSize: '40px 40px' }} />
         <div className="absolute -top-1/3 left-1/4 w-[600px] h-[600px] rounded-full bg-[#c68b59]/8 blur-[140px] pointer-events-none z-0" />
@@ -314,8 +315,9 @@ export default function Careers() {
       {/* ══════════════════════════════════════════
           3. STATS
       ══════════════════════════════════════════ */}
-      <section className="bg-[#081F52] py-20 border-b border-white/5">
-        <div className="container-page grid grid-cols-2 md:grid-cols-4 gap-10">
+      <section className="relative bg-cover bg-center bg-no-repeat bg-fixed py-20 border-b border-white/5" style={{ backgroundImage: "url('/careers_bg.png')" }}>
+        <div className="absolute inset-0 bg-[#050816]/95 pointer-events-none z-0"></div>
+        <div className="container-page relative z-10 grid grid-cols-2 md:grid-cols-4 gap-10">
           <Counter end="40" suffix="+" label="Team Members" />
           <Counter end="25" suffix="+" label="Open Roles" />
           <Counter end="150" suffix="+" label="Projects" />
@@ -513,7 +515,8 @@ export default function Careers() {
       {/* ══════════════════════════════════════════
           7. CTA
       ══════════════════════════════════════════ */}
-      <section className="relative bg-[#081F52] py-24 md:py-32 text-center overflow-hidden">
+      <section className="relative bg-cover bg-center bg-no-repeat bg-fixed py-24 md:py-32 text-center overflow-hidden" style={{ backgroundImage: "url('/careers_bg.png')" }}>
+        <div className="absolute inset-0 bg-[#050816]/95 pointer-events-none z-0"></div>
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-[#c68b59]/5 blur-[120px] pointer-events-none z-0" />
         <div className="container-page relative z-10 max-w-2xl">
           <motion.div initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }}

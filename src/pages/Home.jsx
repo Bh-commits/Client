@@ -79,9 +79,10 @@ export default function Home() {
 
       {/* ── Stats ── */}
       <section
-        className="relative py-20 overflow-hidden"
-        style={{ background: '#030F1F' }}
+        className="relative py-20 overflow-hidden bg-cover bg-center bg-no-repeat bg-fixed border-b border-[rgba(198,139,89,0.12)]"
+        style={{ backgroundImage: "url('/careers_bg.png')" }}
       >
+        <div className="absolute inset-0 bg-[#030F1F]/85 backdrop-blur-[1px] pointer-events-none z-0" />
         <ParticleBg count={12} />
         <div className="container-page relative z-10 grid gap-4 md:grid-cols-3 lg:grid-cols-5">
           {stats.map((stat) => (
@@ -107,10 +108,11 @@ export default function Home() {
 
       {/* ── FAQ ── */}
       <section
-        className="py-20"
-        style={{ background: '#081F52' }}
+        className="relative py-20 bg-cover bg-center bg-no-repeat bg-fixed border-b border-[rgba(198,139,89,0.12)]"
+        style={{ backgroundImage: "url('/careers_bg.png')" }}
       >
-        <div className="container-page">
+        <div className="absolute inset-0 bg-[#081F52]/85 backdrop-blur-[1px] pointer-events-none z-0" />
+        <div className="container-page relative z-10">
           <SectionHeader eyebrow="FAQ" title="Answers before we start." />
           <div className="mt-12">
             <FAQ />

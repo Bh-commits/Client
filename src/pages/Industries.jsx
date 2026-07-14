@@ -223,8 +223,12 @@ export default function Industries() {
       </section>
 
       {/* ── 5. FINAL CTA SECTION ── */}
-      <section className="relative bg-[#081F52] py-24 md:py-32 border-t border-white/5 text-center overflow-hidden">
-
+      <section 
+        className="relative py-24 md:py-32 border-t border-white/5 text-center overflow-hidden bg-cover bg-center bg-no-repeat bg-fixed"
+        style={{ backgroundImage: "url('/careers_bg.png')" }}
+      >
+        {/* Dark overlay */}
+        <div className="absolute inset-0 bg-[#050816]/95 pointer-events-none z-0" />
 
         <div className="container-page relative z-10 max-w-3xl">
           <span className="inline-flex items-center gap-2 rounded-full border border-[#c68b59]/30 bg-[#c68b59]/10 px-4 py-1.5 text-xs font-medium uppercase tracking-[0.25em] text-[#c68b59] mb-6">
